@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>高丽丽 · 个人主页</title>
+  <style>
+    /* ============================================================
+       版式致敬 Oil®（欧呦）—— 加载页 / 逐行浮现 / 网格+光晕+漂浮色块
+       滚动进度 / 眼睛跟随光标+体感 / Tab 翻牌 / 卡片活演示
+       配色：粉嫩 + 炫彩渐变
+       ============================================================ */
+    :root {
+      --bg: #fffafc;
+      --ink: #2c1f28;
+      --t2: #7a6572;
+      --t3: #b8a0ad;
+      --line: #f6e4ee;
+      --pink: #ff5c9e;
+      --pink-soft: #ffd3e4;
+      --purple: #a78bfa;
+      --blue: #7cc7ff;
+      --mint: #7fe3c0;
+      --gold: #ffd36e;
+      --grad: linear-gradient(120deg, #ff5c9e 0%, #a78bfa 55%, #7cc7ff 100%);
+      --hl: #ffe9f2;
+      --ease: cubic-bezier(.19,1,.22,1);
+      --spring: cubic-bezier(.34,1.56,.64,1);
+      --eye-x: 0px;
+      --eye-y: 0px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; border: 0; background: none; cursor: pointer; }
+    ul { list-style: none; }
+
+    /* ===== 加载页 ===== */
+    .loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      background-image: linear-gradient(#ff5c9e08 1px, transparent 0), linear-gradient(90deg, #ff5c9e08 1px, transparent 0);
+      background-size: 32px 32px;
+      display: grid; place-items: center;
+      transition: transform .62s var(--ease), opacity .42s ease;
+    }
+    .loader.is-exiting { transform: translateY(-100%); opacity: .96; pointer-events: none; }
+    .loader-inner { text-align: center; }
+    .loader-mark {
+      font-size: 64px; font-weight: 800; line-height: 1;
+      background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: loader-greet 1.55s var(--ease) infinite;
+    }
+    .loader-track {
+      width: 160px; height: 3px; margin: 22px auto 0;
+      background: var(--line); border-radius: 99px; overflow: hidden;
+    }
+    .loader-track i {
+      display: block; height: 100%; width: 40%; border-radius: 99px;
+      background: var(--grad);
+      animation: loader-progress 1.25s var(--ease) infinite;
+    }
+    @keyframes loader-greet { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes loader-progress { 0% { transform: translateX(-100%); } 100% { transform: translateX(400%); } }
+
+    /* ===== 背景：网格 / 光晕 / 漂浮色块 ===== */
+    .bg-grid, .bg-glow {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    }
+    .bg-grid {
+      background-image: linear-gradient(#ff5c9e0a 1px, transparent 0), linear-gradient(90deg, #ff5c9e0a 1px, transparent 0);
+      background-size: 32px 32px;
+    }
+    .bg-glow { background: radial-gradient(80% 50% at 50% -10%, #ffd3e466, transparent 70%); }
+    .field { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .3; overflow: clip; }
+    .blob { position: absolute; border-radius: 50%; }
+    .blob.b1 {
+      width: 40vmax; height: 40vmax; top: -12vmax; left: -10vmax;
+      background: radial-gradient(circle, #ffd3e4 0%, #ffd3e400 70%);
+      animation: float1 36s ease-in-out infinite alternate;
+    }
+    .blob.b2 {
+      width: 34vmax; height: 34vmax; top: 34vh; right: -12vmax;
+      background: radial-gradient(circle, #dcd1ff 0%, #dcd1ff00 72%);
+      animation: float2 44s ease-in-out infinite alternate;
+    }
+    .blob.b3 {
+      width: 26vmax; height: 26vmax; top: 62vh; left: -10vmax;
+      background: radial-gradient(circle, #cfe9ff 0%, #cfe9ff00 70%);
+      animation: float1 48s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes float1 { to { transform: translate(10vmax, 8vmax); } }
+    @keyframes float2 { to { transform: translate(-9vmax, -7vmax); } }
+
+    /* ===== 阅读进度 ===== */
+    .progress {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 90;
+      height: 3px; background: transparent;
+    }
+    .progress i#bar {
+      display: block; height: 100%; width: 0;
+      background: var(--grad); border-radius: 0 99px 99px 0;
+    }
+    .progress-num {
+      position: fixed; right: 26px; bottom: 26px; z-index: 90;
+      font-variant-numeric: tabular-nums; font-weight: 700;
+      font-size: 13px; color: var(--t3);
+      display: flex; align-items: baseline; gap: 2px;
+    }
+    .progress-num b { font-size: 20px; color: var(--pink); }
+
+    /* ===== 主列 ===== */
+    .col {
+      position: relative; z-index: 2;
+      width: 100%; max-width: 820px; margin: 0 auto; padding: 0 32px;
+    }
+    header.nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 0;
+      letter-spacing: .12em;
+      color: var(--t2);
+      font-size: 14px;
+    }
+    header.nav .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--ink); }
+    header.nav .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--grad); display: inline-block; }
+    header.nav a:hover { color: var(--pink); }
+
+    /* ===== Hero ===== */
+    .hero { padding: 4vh 0 6vh; position: relative; }
+    .hero h1 { font-size: clamp(44px, 9vw, 96px); font-weight: 800; line-height: 1.02; letter-spacing: -.02em; }
+    .lmask { display: block; overflow: hidden; margin-bottom: -.08em; padding-bottom: .08em; }
+    .lmask > span { display: block; transform: translateY(112%); animation: lift 1.5s var(--ease) forwards; }
+    .hero h1 .lmask:nth-child(1) > span { animation-delay: .1s; }
+    .hero h1 .lmask:nth-child(2) > span { animation-delay: .24s; }
+    .hero h1 .lmask:nth-child(3) > span { animation-delay: .38s; }
+    @keyframes lift { to { transform: translateY(0); } }
+
+    .grad-text {
+      background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero .sub { margin-top: 26px; opacity: 0; animation: fadeup 1.4s var(--ease) 1s forwards; }
+    .hero .sub .zh { font-size: 18px; font-weight: 600; color: var(--ink); }
+    .hero .sub .en { display: block; margin-top: 4px; font-size: 12px; letter-spacing: .18em; color: var(--t3); }
+    @keyframes fadeup { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+    .hero .meta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; opacity: 0; animation: fadeup 1.4s var(--ease) 1.15s forwards; }
+    .hero .meta-chip {
+      font-size: 13px; font-weight: 600; color: var(--ink);
+      background: #fff; border: 1px solid var(--line); border-radius: 99px; padding: 7px 14px;
+    }
+
+    /* ===== 吉祥物（眼睛跟随光标/体感） ===== */
+    .mascot {
+      position: absolute; right: -30px; top: 40px;
+      width: clamp(180px, 26vw, 240px); aspect-ratio: 1;
+      opacity: 0; animation: hero-enter 1.5s var(--ease) .5s forwards, breathe 5.4s ease-in-out 2s infinite;
+      pointer-events: none; user-select: none; z-index: 3;
+    }
+    @keyframes hero-enter { from { opacity: 0; transform: translateY(24px) scale(.9); } to { opacity: 1; transform: none; } }
+    @keyframes breathe { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+    .mascot .body {
+      position: absolute; inset: 0; border-radius: 58% 42% 55% 45% / 48% 54% 46% 52%;
+      background: var(--grad);
+      box-shadow: inset 0 -8px 24px rgba(0,0,0,.06), 0 16px 32px -16px rgba(255,92,158,.5);
+      animation: blob-morph 7s ease-in-out infinite alternate;
+    }
+    @keyframes blob-morph {
+      to { border-radius: 45% 55% 48% 52% / 55% 46% 54% 45%; }
+    }
+    .mascot .bow { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 44px; z-index: 2; filter: drop-shadow(0 4px 6px rgba(0,0,0,.15)); }
+    .mascot .eye {
+      position: absolute; top: 42%; width: 22%; aspect-ratio: 1.2; background: #fff;
+      border-radius: 50%; z-index: 2; animation: blink 5.6s infinite;
+    }
+    .mascot .eye-l { left: 22%; }
+    .mascot .eye-r { right: 22%; }
+    .mascot .eye i {
+      position: absolute; left: 50%; top: 50%; width: 40%; aspect-ratio: 1;
+      background: #2c1f28; border-radius: 50%;
+      transform: translate(calc(-50% + var(--eye-x)), calc(-50% + var(--eye-y)));
+      transition: transform .12s ease-out;
+    }
+    .mascot .eye i::after { content: ""; position: absolute; left: 18%; top: 16%; width: 30%; height: 30%; background: #fff; border-radius: 50%; }
+    @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95%, 96% { transform: scaleY(.08); } }
+    .mascot .blush { position: absolute; top: 54%; width: 13%; aspect-ratio: 1.4; background: rgba(255,255,255,.55); border-radius: 50%; z-index: 1; }
+    .mascot .blush-l { left: 12%; }
+    .mascot .blush-r { right: 12%; }
+    .mascot .smile { position: absolute; left: 50%; top: 58%; transform: translateX(-50%); width: 22%; height: 10%; border-bottom: 4px solid #fff; border-radius: 50%; z-index: 2; }
+
+    .hero .hint-row { display: flex; align-items: center; gap: 18px; margin-top: 40px; opacity: 0; animation: fadeup 1.4s var(--ease) 1.3s forwards; }
+    .hero .arrow { font-size: 13px; color: var(--t3); letter-spacing: .05em; }
+    .hero .motion-btn {
+      font-size: 13px; font-weight: 600; color: var(--pink);
+      border: 1px solid var(--line); background: #fff; border-radius: 99px; padding: 7px 14px;
+      transition: background .3s var(--ease);
+    }
+    .hero .motion-btn:hover { background: var(--hl); }
+
+    /* ===== Works 区 ===== */
+    .works { position: relative; padding: 20px 0 60px; }
+    .reel-number {
+      position: absolute; right: -4px; top: -60px; z-index: 0;
+      font-weight: 800; font-size: clamp(100px, 18vw, 220px); line-height: 1;
+      color: var(--line); pointer-events: none; user-select: none;
+      display: flex; gap: .04em; letter-spacing: -.02em;
+    }
+    .reel-col { height: 1em; overflow: hidden; }
+    .strip { display: flex; flex-direction: column; transition: transform .9s var(--ease); will-change: transform; }
+    .strip span { height: 1em; line-height: 1; display: block; }
+
+    .tabs {
+      position: relative; z-index: 2;
+      display: flex; flex-wrap: wrap; gap: 26px;
+      margin-bottom: 34px; border-bottom: 1px solid var(--line); padding-bottom: 14px;
+    }
+    .tab {
+      font-size: 15px; font-weight: 600; color: var(--t3);
+      position: relative; padding: 4px 2px; transition: color .3s var(--ease);
+    }
+    .tab::after {
+      content: ""; position: absolute; left: 0; bottom: -15px; height: 2px; width: 100%;
+      background: var(--grad); border-radius: 2px; transform: scaleX(0); transform-origin: left;
+      transition: transform .4s var(--ease);
+    }
+    .tab:hover { color: var(--ink); }
+    .tab.active { color: var(--ink); }
+    .tab.active::after { transform: scaleX(1); }
+
+    .panel { display: none; }
+    .panel.active { display: block; animation: panelin .9s var(--ease); }
+    @keyframes panelin { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+
+    .panel-head { margin-bottom: 26px; }
+    .panel-head h2 { font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
+    .panel-head p { color: var(--t2); font-size: 14px; margin-top: 6px; }
+
+    /* ===== 项目卡片 ===== */
+    .pcard {
+      position: relative;
+      background: #fff; border: 1px solid var(--line); border-radius: 22px;
+      padding: 26px; margin-bottom: 20px;
+      transition: transform .6s var(--ease), box-shadow .7s var(--ease), border-color .6s var(--ease);
+      overflow: hidden;
+    }
+    .pcard:hover { transform: translateY(-5px); border-color: #ffcfe2; box-shadow: 0 3px 6px rgba(255,92,158,.06), 0 26px 48px -18px rgba(255,92,158,.25); }
+    .pcard .pnum {
+      position: absolute; top: 22px; right: 26px;
+      font-weight: 800; font-size: 15px; color: var(--t3);
+    }
+    .pcard .stage {
+      height: 170px; border-radius: 16px; margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff0f6, #f3edff);
+      border: 1px solid var(--line);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pcard h3 { font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
+    .pcard .desc { color: var(--t2); font-size: 14.5px; margin: 6px 0 14px; }
+    .pcard .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ptag { font-size: 12px; font-weight: 600; color: var(--t2); background: var(--hl); border-radius: 99px; padding: 5px 12px; }
+    .pcard .go {
+      position: absolute; bottom: 26px; right: 26px;
+      font-size: 13px; font-weight: 600; color: var(--pink);
+    }
+    .pcard .go span { display: inline-block; transition: transform .3s var(--ease); }
+    .pcard:hover .go span { transform: translateX(5px); }
+
+    /* 演示 1：柱状图 */
+    .demo-chart { flex-direction: column; align-items: stretch; justify-content: center; padding: 20px 26px; gap: 12px; }
+    .demo-label { font-size: 12px; font-weight: 700; color: var(--t2); letter-spacing: .03em; }
+    .chart { display: flex; align-items: flex-end; gap: 8px; height: 90px; }
+    .chart i {
+      flex: 1; border-radius: 6px 6px 2px 2px; height: 0;
+      background: var(--grad);
+      animation: grow 1.2s var(--ease) var(--d,0s) forwards;
+    }
+    @keyframes grow { to { height: var(--h, 50%); } }
+
+    /* 演示 2：聊天气泡 */
+    .demo-chat { flex-direction: column; align-items: flex-start; justify-content: center; padding: 20px 26px; gap: 8px; }
+    .bubble {
+      max-width: 70%; font-size: 13px; font-weight: 600; padding: 8px 14px; border-radius: 16px;
+      opacity: 0; animation: pop .5s var(--spring) var(--d,0s) forwards;
+    }
+    .bubble.left { align-self: flex-start; background: #fff; border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+    .bubble.right { align-self: flex-end; background: var(--grad); color: #fff; border-bottom-right-radius: 4px; }
+    @keyframes pop { from { opacity: 0; transform: translateY(12px) scale(.9); } to { opacity: 1; transform: none; } }
+    .typing { display: flex; gap: 4px; align-self: flex-start; padding: 8px 14px; background: #fff; border: 1px solid var(--line); border-radius: 16px; border-bottom-left-radius: 4px; opacity: 0; animation: pop .5s var(--spring) var(--d,0s) forwards; }
+    .typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--t3); animation: tp 1.2s ease-in-out infinite; }
+    .typing i:nth-child(2) { animation-delay: .18s; }
+    .typing i:nth-child(3) { animation-delay: .36s; }
+    @keyframes tp { 0%,60%,100% { transform: translateY(0); opacity: .4; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+    /* 演示 3：表单 */
+    .demo-form { flex-direction: column; align-items: stretch; justify-content: center; padding: 20px 26px; gap: 10px; }
+    .f-row { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; font-weight: 600; color: var(--t2); }
+    .f-chip { background: var(--grad); color: #fff; border-radius: 99px; padding: 3px 10px; font-size: 11px; }
+    .f-input {
+      font-size: 14px; font-weight: 600; color: var(--ink);
+      background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px;
+    }
+    .caret { display: inline-block; width: 2px; height: 1em; background: var(--pink); vertical-align: -2px; margin-left: 2px; animation: blink-caret 1.05s steps(1) infinite; }
+    @keyframes blink-caret { 50% { opacity: 0; } }
+    .f-row2 { display: flex; align-items: center; gap: 10px; }
+    .f-check { font-size: 12.5px; font-weight: 700; color: var(--pink); opacity: 0; animation: pop .5s var(--spring) 1s forwards; }
+    .f-btn { margin-left: auto; font-size: 12.5px; font-weight: 700; color: #fff; background: var(--grad); border-radius: 99px; padding: 7px 16px; opacity: 0; animation: pop .5s var(--spring) 1.3s forwards; }
+
+    /* ===== 文章卡片 ===== */
+    .acard {
+      display: grid; grid-template-columns: 200px 1fr; gap: 22px;
+      background: #fff; border: 1px solid var(--line); border-radius: 22px;
+      padding: 18px; margin-bottom: 18px; align-items: center;
+      transition: transform .6s var(--ease), box-shadow .7s var(--ease);
+    }
+    .acard:hover { transform: translateY(-4px); box-shadow: 0 26px 48px -18px rgba(255,92,158,.22); }
+    .acard .thumb { border-radius: 14px; overflow: hidden; aspect-ratio: 16/9; background: #fff0f6; }
+    .acard .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .acard .thumb .ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 30px; background: linear-gradient(135deg, #fff0f6, #f3edff); }
+    .acard .info .src { font-size: 12px; font-weight: 700; letter-spacing: .05em; color: var(--pink); }
+    .acard .info h3 { font-size: 18px; font-weight: 800; letter-spacing: -.01em; margin: 4px 0 6px; }
+    .acard .info p { font-size: 13.5px; color: var(--t2); }
+    .acard .more { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 700; color: var(--pink); margin-top: 10px; }
+    .acard .more span { transition: transform .3s var(--ease); }
+    .acard:hover .more span { transform: translateX(4px); }
+
+    /* ===== 关于我 ===== */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 28px; }
+    .about-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 24px; }
+    .about-card .lead { font-size: 17px; font-weight: 600; line-height: 1.6; }
+    .about-card p { color: var(--t2); font-size: 14px; margin-top: 10px; }
+    .exp-list { display: flex; flex-direction: column; gap: 14px; }
+    .exp { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; display: grid; grid-template-columns: 130px 1fr; gap: 16px; }
+    .exp .date { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--pink); padding-top: 4px; }
+    .exp h4 { font-size: 17px; font-weight: 800; }
+    .exp .co { font-size: 13px; color: var(--t3); margin: 3px 0 8px; }
+    .exp li { font-size: 13.5px; color: var(--t2); position: relative; padding-left: 16px; margin-top: 5px; }
+    .exp li::before { content: "·"; position: absolute; left: 4px; color: var(--pink); font-weight: 800; }
+    .skill-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+
+    /* ===== 交流 ===== */
+    .contact-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 8px 24px; }
+    .c-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+    .c-row:last-child { border-bottom: 0; }
+    .c-row .k { font-size: 13px; font-weight: 700; color: var(--t3); display: flex; align-items: center; gap: 10px; }
+    .c-row .k .ico { width: 22px; height: 22px; border-radius: 50%; background: var(--grad); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
+    .c-row .v { font-size: 15px; font-weight: 600; }
+    .c-row .v a:hover { color: var(--pink); }
+
+    footer { padding: 40px 0 60px; text-align: center; color: var(--t3); font-size: 13px; }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 760px) {
+      .mascot { right: 50%; top: auto; transform: translateX(50%); width: 150px; margin-top: 24px; position: relative; }
+      .mascot { animation: hero-enter 1.5s var(--ease) .5s forwards, breathe 5.4s ease-in-out 2s infinite; }
+      .about-grid { grid-template-columns: 1fr; }
+      .acard { grid-template-columns: 1fr; }
+      .exp { grid-template-columns: 1fr; gap: 8px; }
+      .reel-number { font-size: 88px; top: -34px; }
+      .progress-num { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 加载页 -->
+  <div class="loader" id="loader" role="status" aria-label="加载中">
+    <div class="loader-inner">
+      <div class="loader-mark">GL®</div>
+      <div class="loader-track"><i></i></div>
+    </div>
+  </div>
+
+  <!-- 背景 -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+  <div class="field"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+  <!-- 阅读进度 -->
+  <div class="progress"><i id="bar"></i></div>
+  <div class="progress-num"><b id="pv">00</b>/100</div>
+
+  <div class="col">
+    <header class="nav">
+      <span class="brand"><span class="dot"></span>高丽丽®</span>
+      <a href="https://github.com/gaolili" target="_blank" rel="noopener">GitHub ↗</a>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <div class="hero">
+        <h1>
+          <span class="lmask"><span>高丽丽<sup>®</sup></span></span>
+          <span class="lmask"><span class="grad-text">makes</span></span>
+          <span class="lmask"><span>things. ✨</span></span>
+        </h1>
+        <div class="sub">
+          <span class="zh">欧 呦 · 把想法做成产品</span>
+          <span class="en">PRODUCT MANAGER / WRITER / BEIJING</span>
+        </div>
+        <div class="meta-row">
+          <span class="meta-chip">📍 北京</span>
+          <span class="meta-chip">2 年经验</span>
+          <span class="meta-chip">6 个项目</span>
+          <span class="meta-chip">爱写产品思考</span>
+        </div>
+
+        <!-- 吉祥物 -->
+        <div class="mascot" aria-hidden="true">
+          <span class="bow">🎀</span>
+          <div class="body"></div>
+          <span class="eye eye-l"><i></i></span>
+          <span class="eye eye-r"><i></i></span>
+          <span class="blush blush-l"></span>
+          <span class="blush blush-r"></span>
+          <span class="smile"></span>
+        </div>
+
+        <div class="hint-row">
+          <span class="arrow">↓ 往下滑</span>
+          <button class="motion-btn" id="motionBtn" type="button">开启体感</button>
+        </div>
+      </div>
+
+      <!-- Works -->
+      <div class="works">
+        <div class="reel-number" aria-hidden="true">
+          <div class="reel-col"><div class="strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span></div></div>
+          <div class="reel-col"><div class="strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="内容分类">
+          <button class="tab active" data-num="01" data-target="panel-projects">项目</button>
+          <button class="tab" data-num="02" data-target="panel-articles">文章</button>
+          <button class="tab" data-num="03" data-target="panel-about">关于我</button>
+          <button class="tab" data-num="04" data-target="panel-contact">交流</button>
+        </div>
+
+        <!-- 项目 -->
+        <section class="panel active" id="panel-projects" role="tabpanel">
+          <div class="panel-head">
+            <h2>项目作品</h2>
+            <p>参与 6 个从 0 到 1 的项目 · 每张卡片都是会动的「活演示」</p>
+          </div>
+
+          <div class="pcard">
+            <span class="pnum">01</span>
+            <div class="stage demo-chart">
+              <span class="demo-label">本月活跃用户 · 持续增长 📈</span>
+              <div class="chart">
+                <i style="--h:42%;--d:0s"></i>
+                <i style="--h:66%;--d:.1s"></i>
+                <i style="--h:54%;--d:.2s"></i>
+                <i style="--h:88%;--d:.3s"></i>
+                <i style="--h:73%;--d:.4s"></i>
+                <i style="--h:96%;--d:.5s"></i>
+                <i style="--h:80%;--d:.6s"></i>
+              </div>
+            </div>
+            <h3>数据看板产品</h3>
+            <p class="desc">面向运营团队的数据可视化平台，沉淀指标体系与报表能力。</p>
+            <div class="tags"><span class="ptag">数据产品</span><span class="ptag">指标设计</span><span class="ptag">Figma</span></div>
+            <a class="go" href="#">查看项目 <span>→</span></a>
+          </div>
+
+          <div class="pcard">
+            <span class="pnum">02</span>
+            <div class="stage demo-chat">
+              <div class="bubble left" style="--d:.3s">周末一起看展吗？🎨</div>
+              <div class="bubble right" style="--d:.9s">好呀好呀！</div>
+              <div class="bubble left" style="--d:1.5s">那我订票啦～</div>
+              <div class="typing" style="--d:2.1s"><i></i><i></i><i></i></div>
+            </div>
+            <h3>移动端社区 App</h3>
+            <p class="desc">负责用户增长与留存优化，通过 A/B 测试迭代核心体验。</p>
+            <div class="tags"><span class="ptag">用户增长</span><span class="ptag">A/B 测试</span><span class="ptag">社区</span></div>
+            <a class="go" href="#">查看项目 <span>→</span></a>
+          </div>
+
+          <div class="pcard">
+            <span class="pnum">03</span>
+            <div class="stage demo-form">
+              <div class="f-row"><span>需求优先级</span><span class="f-chip">P0 × 3</span></div>
+              <div class="f-input">产品需求：优化登录流程<span class="caret"></span></div>
+              <div class="f-row2"><span class="f-check">✓ 已排期</span><span class="f-btn">发布 →</span></div>
+            </div>
+            <h3>B 端 SaaS 后台改版</h3>
+            <p class="desc">企业级管理后台从 0 到 1，负责需求梳理、信息架构与原型设计。</p>
+            <div class="tags"><span class="ptag">B 端产品</span><span class="ptag">Axure</span><span class="ptag">需求管理</span></div>
+            <a class="go" href="#">查看项目 <span>→</span></a>
+          </div>
+        </section>
+
+        <!-- 文章 -->
+        <section class="panel" id="panel-articles" role="tabpanel">
+          <div class="panel-head">
+            <h2>文章</h2>
+            <p>在「人人都是产品经理」等平台分享产品思考</p>
+          </div>
+
+          <a class="acard" href="https://www.woshipm.com/evaluating/6443589.html" target="_blank" rel="noopener">
+            <div class="thumb"><img src="article-cover.jpg" alt="文章缩略图" loading="lazy" /></div>
+            <div class="info">
+              <span class="src">精选文章 · 人人都是产品经理</span>
+              <h3>AI越主动体验就越好吗？从一篇成稿看排版工具的介入边界</h3>
+              <p>从一次真实的排版经历出发，聊聊 AI 产品「主动性」与用户体验之间的边界。</p>
+              <span class="more">了解更多 <span>→</span></span>
+            </div>
+          </a>
+
+          <a class="acard" href="#" target="_blank" rel="noopener">
+            <div class="thumb"><div class="ph">📝</div></div>
+            <div class="info">
+              <span class="src">产品思考</span>
+              <h3>从需求到落地：我是怎么做需求分析的</h3>
+              <p>一篇关于需求拆解、优先级排序与跨团队协作的实战总结。</p>
+              <span class="more">了解更多 <span>→</span></span>
+            </div>
+          </a>
+
+          <a class="acard" href="#" target="_blank" rel="noopener">
+            <div class="thumb"><div class="ph">💡</div></div>
+            <div class="info">
+              <span class="src">产品思考</span>
+              <h3>用户调研的 5 个反常识</h3>
+              <p>那些看起来「应该这样做」、其实完全相反的用户研究方法。</p>
+              <span class="more">了解更多 <span>→</span></span>
+            </div>
+          </a>
+        </section>
+
+        <!-- 关于我 -->
+        <section class="panel" id="panel-about" role="tabpanel">
+          <div class="panel-head">
+            <h2>关于我</h2>
+            <p>从用户需求，到产品落地</p>
+          </div>
+          <div class="about-grid">
+            <div class="about-card">
+              <div class="lead">我是一名产品经理，现居北京。2 年产品经验，先后参与 6 个从 0 到 1 的项目。</div>
+            </div>
+            <div class="about-card">
+              <p>擅长需求分析、原型设计与跨团队协作，相信好产品源于对用户真实场景的洞察，也喜欢把复杂问题拆解成清晰、可落地的方案。</p>
+              <p>工作之余坚持写作，在「人人都是产品经理」等平台分享产品思考。</p>
+            </div>
+          </div>
+
+          <div class="panel-head" style="margin-top:8px"><h2 style="font-size:22px">工作经历</h2></div>
+          <div class="exp-list">
+            <div class="exp">
+              <div class="date">2023 — 至今</div>
+              <div>
+                <h4>产品经理</h4>
+                <div class="co">某某互联网公司 · B 端 SaaS</div>
+                <ul>
+                  <li>负责企业级管理后台的需求梳理与迭代规划，推动 3 个大版本上线。</li>
+                  <li>通过用户调研与数据分析优化核心流程，关键指标提升 25%。</li>
+                </ul>
+              </div>
+            </div>
+            <div class="exp">
+              <div class="date">2022 — 2023</div>
+              <div>
+                <h4>产品助理</h4>
+                <div class="co">某某科技公司 · 移动端社区</div>
+                <ul>
+                  <li>协助完成社区 App 的原型设计与 PRD 撰写，跟进开发与验收。</li>
+                  <li>参与用户反馈收集与竞品分析，输出多份产品调研报告。</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="skill-strip">
+            <span class="ptag">需求分析</span><span class="ptag">产品规划</span><span class="ptag">用户研究</span>
+            <span class="ptag">原型设计</span><span class="ptag">数据分析</span><span class="ptag">项目管理</span>
+            <span class="ptag">Axure</span><span class="ptag">Figma</span><span class="ptag">SQL</span>
+          </div>
+        </section>
+
+        <!-- 交流 -->
+        <section class="panel" id="panel-contact" role="tabpanel">
+          <div class="panel-head">
+            <h2>交流</h2>
+            <p>欢迎来聊产品、写作或合作机会</p>
+          </div>
+          <div class="contact-card">
+            <div class="c-row"><span class="k"><span class="ico">✉</span>邮箱</span><span class="v"><a href="mailto:gaolili@example.com">gaolili@example.com</a></span></div>
+            <div class="c-row"><span class="k"><span class="ico">◎</span>GitHub</span><span class="v"><a href="https://github.com/gaolili" target="_blank">github.com/gaolili</a></span></div>
+            <div class="c-row"><span class="k"><span class="ico">✎</span>人人都是产品经理</span><span class="v"><a href="https://www.woshipm.com/evaluating/6443589.html" target="_blank">查看文章 →</a></span></div>
+            <div class="c-row"><span class="k"><span class="ico">💬</span>微信</span><span class="v">gaolili_wechat</span></div>
+            <div class="c-row"><span class="k"><span class="ico">📱</span>手机</span><span class="v">138-0000-0000</span></div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>© 2024 高丽丽 · 用 ♥ 制作 · GL®</footer>
+  </div>
+
+  <script>
+    // ===== 加载页 =====
+    const loader = document.getElementById('loader');
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        loader.classList.add('is-exiting');
+        setTimeout(() => loader.remove(), 700);
+      }, 900);
+    });
+    // 兜底：即便 load 已过也保证消失
+    setTimeout(() => { if (document.body.contains(loader)) loader.classList.add('is-exiting'); }, 2600);
+
+    // ===== 阅读进度 =====
+    const bar = document.getElementById('bar');
+    const pv = document.getElementById('pv');
+    function onScroll() {
+      const h = document.documentElement.scrollHeight - innerHeight;
+      const p = h > 0 ? Math.min(1, scrollY / h) : 0;
+      bar.style.width = (p * 100) + '%';
+      pv.textContent = String(Math.round(p * 100)).padStart(2, '0');
+    }
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // ===== Tab 切换 + 翻牌数字 =====
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+    const strips = document.querySelectorAll('.reel-col .strip');
+    function setReel(n) {
+      const s = String(n).padStart(2, '0');
+      [...strips].forEach((strip, i) => {
+        const d = +s[i] || 0;
+        strip.style.transform = 'translateY(-' + (d * 1) + 'em)';
+      });
+    }
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        panels.forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.target).classList.add('active');
+        setReel(tab.dataset.num);
+        scrollTo({ top: document.querySelector('.works').offsetTop - 20, behavior: 'smooth' });
+      });
+    });
+    setReel('01');
+
+    // ===== 眼睛跟随光标 =====
+    const root = document.documentElement;
+    let motionMode = false;
+    function setEyes(x, y) {
+      root.style.setProperty('--eye-x', (x * 5) + 'px');
+      root.style.setProperty('--eye-y', (y * 5) + 'px');
+    }
+    document.addEventListener('mousemove', e => {
+      if (motionMode) return;
+      const m = document.querySelector('.mascot');
+      if (!m) return;
+      const r = m.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      let dx = (e.clientX - cx) / (r.width / 2);
+      let dy = (e.clientY - cy) / (r.height / 2);
+      const len = Math.hypot(dx, dy);
+      if (len > 1) { dx /= len; dy /= len; }
+      setEyes(dx, dy);
+    });
+
+    // ===== 体感（陀螺仪） =====
+    const motionBtn = document.getElementById('motionBtn');
+    function onTilt(e) {
+      const x = Math.max(-1, Math.min(1, e.gamma / 22));
+      const y = Math.max(-1, Math.min(1, e.beta / 22));
+      setEyes(x, -y);
+    }
+    motionBtn.addEventListener('click', async () => {
+      if (motionMode) {
+        motionMode = false;
+        motionBtn.textContent = '开启体感';
+        window.removeEventListener('deviceorientation', onTilt);
+        return;
+      }
+      try {
+        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+          const r = await DeviceOrientationEvent.requestPermission();
+          if (r !== 'granted') return;
+        }
+      } catch (err) {}
+      motionMode = true;
+      motionBtn.textContent = '体感已开启';
+      window.addEventListener('deviceorientation', onTilt);
+    });
+  </script>
+</body>
+</html>
