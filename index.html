@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>高丽丽 · 个人主页</title>
+  <title>Gala™ · product builder</title>
   <style>
     /* ============================================================
        版式致敬 Oil®（欧呦）—— 加载页 / 逐行浮现 / 网格+光晕+漂浮色块
@@ -11,7 +11,7 @@
        配色：粉嫩 + 炫彩渐变
        ============================================================ */
     :root {
-      --bg: #fffafc;
+      --bg: #f6faff;
       --ink: #2c1f28;
       --t2: #7a6572;
       --t3: #b8a0ad;
@@ -26,8 +26,6 @@
       --hl: #ffe9f2;
       --ease: cubic-bezier(.19,1,.22,1);
       --spring: cubic-bezier(.34,1.56,.64,1);
-      --eye-x: 0px;
-      --eye-y: 0px;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -48,7 +46,7 @@
     .loader {
       position: fixed; inset: 0; z-index: 9999;
       background: var(--bg);
-      background-image: linear-gradient(#ff5c9e08 1px, transparent 0), linear-gradient(90deg, #ff5c9e08 1px, transparent 0);
+      background-image: linear-gradient(#7cc7ff14 1px, transparent 0), linear-gradient(90deg, #7cc7ff14 1px, transparent 0);
       background-size: 32px 32px;
       display: grid; place-items: center;
       transition: transform .62s var(--ease), opacity .42s ease;
@@ -60,6 +58,7 @@
       background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
       animation: loader-greet 1.55s var(--ease) infinite;
     }
+    .loader-mark sup { font-size: .2em; font-weight: 700; vertical-align: super; }
     .loader-track {
       width: 160px; height: 3px; margin: 22px auto 0;
       background: var(--line); border-radius: 99px; overflow: hidden;
@@ -77,15 +76,15 @@
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
     }
     .bg-grid {
-      background-image: linear-gradient(#ff5c9e0a 1px, transparent 0), linear-gradient(90deg, #ff5c9e0a 1px, transparent 0);
+      background-image: linear-gradient(#7cc7ff18 1px, transparent 0), linear-gradient(90deg, #7cc7ff18 1px, transparent 0);
       background-size: 32px 32px;
     }
-    .bg-glow { background: radial-gradient(80% 50% at 50% -10%, #ffd3e466, transparent 70%); }
+    .bg-glow { background: radial-gradient(80% 50% at 50% -10%, #cfe9ff99, transparent 70%); }
     .field { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .3; overflow: clip; }
     .blob { position: absolute; border-radius: 50%; }
     .blob.b1 {
       width: 40vmax; height: 40vmax; top: -12vmax; left: -10vmax;
-      background: radial-gradient(circle, #ffd3e4 0%, #ffd3e400 70%);
+      background: radial-gradient(circle, #dbeafe 0%, #dbeafe00 70%);
       animation: float1 36s ease-in-out infinite alternate;
     }
     .blob.b2 {
@@ -137,6 +136,7 @@
     /* ===== Hero ===== */
     .hero { padding: 4vh 0 6vh; position: relative; }
     .hero h1 { font-size: clamp(44px, 9vw, 96px); font-weight: 800; line-height: 1.02; letter-spacing: -.02em; }
+    .hero h1 sup { font-size: .26em; font-weight: 700; vertical-align: super; }
     .lmask { display: block; overflow: hidden; margin-bottom: -.08em; padding-bottom: .08em; }
     .lmask > span { display: block; transform: translateY(112%); animation: lift 1.5s var(--ease) forwards; }
     .hero h1 .lmask:nth-child(1) > span { animation-delay: .1s; }
@@ -158,87 +158,45 @@
       background: #fff; border: 1px solid var(--line); border-radius: 99px; padding: 7px 14px;
     }
 
-    /* ===== 吉祥物（眼睛跟随光标/体感） ===== */
-    .mascot {
+    /* ===== 个人头像 ===== */
+    .avatar {
       position: absolute; right: -30px; top: 40px;
-      width: clamp(180px, 26vw, 240px); aspect-ratio: 1;
+      width: clamp(180px, 26vw, 240px);
+      display: flex; flex-direction: column; align-items: center;
       opacity: 0; animation: hero-enter 1.5s var(--ease) .5s forwards, breathe 5.4s ease-in-out 2s infinite;
       pointer-events: none; user-select: none; z-index: 3;
     }
     @keyframes hero-enter { from { opacity: 0; transform: translateY(24px) scale(.9); } to { opacity: 1; transform: none; } }
     @keyframes breathe { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-    .mascot .body {
-      position: absolute; inset: 0; border-radius: 58% 42% 55% 45% / 48% 54% 46% 52%;
-      background: var(--grad);
-      box-shadow: inset 0 -8px 24px rgba(0,0,0,.06), 0 16px 32px -16px rgba(255,92,158,.5);
-      animation: blob-morph 7s ease-in-out infinite alternate;
+    .avatar .photo {
+      width: 100%; aspect-ratio: 1; object-fit: cover; object-position: center;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 0 0 6px #fff, 0 0 0 8px var(--line), 0 18px 40px -14px rgba(255,92,158,.4);
     }
-    @keyframes blob-morph {
-      to { border-radius: 45% 55% 48% 52% / 55% 46% 54% 45%; }
+    .avatar .cat {
+      margin-top: 16px; width: 80%;
     }
-    .mascot .bow { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); font-size: 44px; z-index: 2; filter: drop-shadow(0 4px 6px rgba(0,0,0,.15)); }
-    .mascot .eye {
-      position: absolute; top: 42%; width: 22%; aspect-ratio: 1.2; background: #fff;
-      border-radius: 50%; z-index: 2; animation: blink 5.6s infinite;
+    .avatar .cat img {
+      width: 100%; height: auto; display: block;
+      background: transparent; border-radius: 0; box-shadow: none;
+      transition: transform .35s var(--ease);
+      filter: drop-shadow(0 12px 20px rgba(255,92,158,.16));
     }
-    .mascot .eye-l { left: 22%; }
-    .mascot .eye-r { right: 22%; }
-    .mascot .eye i {
-      position: absolute; left: 50%; top: 50%; width: 40%; aspect-ratio: 1;
-      background: #2c1f28; border-radius: 50%;
-      transform: translate(calc(-50% + var(--eye-x)), calc(-50% + var(--eye-y)));
-      transition: transform .12s ease-out;
-    }
-    .mascot .eye i::after { content: ""; position: absolute; left: 18%; top: 16%; width: 30%; height: 30%; background: #fff; border-radius: 50%; }
-    @keyframes blink { 0%, 92%, 100% { transform: scaleY(1); } 95%, 96% { transform: scaleY(.08); } }
-    .mascot .blush { position: absolute; top: 54%; width: 13%; aspect-ratio: 1.4; background: rgba(255,255,255,.55); border-radius: 50%; z-index: 1; }
-    .mascot .blush-l { left: 12%; }
-    .mascot .blush-r { right: 12%; }
-    .mascot .smile { position: absolute; left: 50%; top: 58%; transform: translateX(-50%); width: 22%; height: 10%; border-bottom: 4px solid #fff; border-radius: 50%; z-index: 2; }
+    .avatar .cat img[data-dir="left"]  { transform: translateX(-6px) rotate(-4deg); }
+    .avatar .cat img[data-dir="right"] { transform: translateX(6px) rotate(4deg); }
+    .avatar .cat img[data-dir="up"]    { transform: translateY(-6px); }
+    .avatar .cat img[data-dir="down"]  { transform: translateY(6px); }
 
     .hero .hint-row { display: flex; align-items: center; gap: 18px; margin-top: 40px; opacity: 0; animation: fadeup 1.4s var(--ease) 1.3s forwards; }
     .hero .arrow { font-size: 13px; color: var(--t3); letter-spacing: .05em; }
-    .hero .motion-btn {
-      font-size: 13px; font-weight: 600; color: var(--pink);
-      border: 1px solid var(--line); background: #fff; border-radius: 99px; padding: 7px 14px;
-      transition: background .3s var(--ease);
-    }
-    .hero .motion-btn:hover { background: var(--hl); }
 
     /* ===== Works 区 ===== */
     .works { position: relative; padding: 20px 0 60px; }
-    .reel-number {
-      position: absolute; right: -4px; top: -60px; z-index: 0;
-      font-weight: 800; font-size: clamp(100px, 18vw, 220px); line-height: 1;
-      color: var(--line); pointer-events: none; user-select: none;
-      display: flex; gap: .04em; letter-spacing: -.02em;
-    }
-    .reel-col { height: 1em; overflow: hidden; }
-    .strip { display: flex; flex-direction: column; transition: transform .9s var(--ease); will-change: transform; }
-    .strip span { height: 1em; line-height: 1; display: block; }
 
-    .tabs {
-      position: relative; z-index: 2;
-      display: flex; flex-wrap: wrap; gap: 26px;
-      margin-bottom: 34px; border-bottom: 1px solid var(--line); padding-bottom: 14px;
-    }
-    .tab {
-      font-size: 15px; font-weight: 600; color: var(--t3);
-      position: relative; padding: 4px 2px; transition: color .3s var(--ease);
-    }
-    .tab::after {
-      content: ""; position: absolute; left: 0; bottom: -15px; height: 2px; width: 100%;
-      background: var(--grad); border-radius: 2px; transform: scaleX(0); transform-origin: left;
-      transition: transform .4s var(--ease);
-    }
-    .tab:hover { color: var(--ink); }
-    .tab.active { color: var(--ink); }
-    .tab.active::after { transform: scaleX(1); }
-
-    .panel { display: none; }
-    .panel.active { display: block; animation: panelin .9s var(--ease); }
-    @keyframes panelin { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    .panel { display: block; }
+    .panel + .panel { margin-top: 56px; padding-top: 44px; border-top: 1px solid var(--line); }
 
     .panel-head { margin-bottom: 26px; }
     .panel-head h2 { font-size: 30px; font-weight: 800; letter-spacing: -.02em; }
@@ -334,23 +292,77 @@
     .acard:hover .more span { transform: translateX(4px); }
 
     /* ===== 关于我 ===== */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 28px; }
-    .about-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 24px; }
-    .about-card .lead { font-size: 17px; font-weight: 600; line-height: 1.6; }
-    .about-card p { color: var(--t2); font-size: 14px; margin-top: 10px; }
-    .exp-list { display: flex; flex-direction: column; gap: 14px; }
-    .exp { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; display: grid; grid-template-columns: 130px 1fr; gap: 16px; }
-    .exp .date { font-size: 12px; font-weight: 700; letter-spacing: .06em; color: var(--pink); padding-top: 4px; }
-    .exp h4 { font-size: 17px; font-weight: 800; }
-    .exp .co { font-size: 13px; color: var(--t3); margin: 3px 0 8px; }
-    .exp li { font-size: 13.5px; color: var(--t2); position: relative; padding-left: 16px; margin-top: 5px; }
-    .exp li::before { content: "·"; position: absolute; left: 4px; color: var(--pink); font-weight: 800; }
-    .skill-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .about-intro { position: relative; padding: 4px 0 4px 28px; }
+    .about-intro::before {
+      content: ""; position: absolute; left: 0; top: 8px; bottom: 8px;
+      width: 4px; border-radius: 4px; background: var(--grad);
+    }
+    .about-big {
+      font-size: clamp(24px, 4.4vw, 40px); font-weight: 800; line-height: 1.3; letter-spacing: -.02em;
+    }
+    .about-big .grad {
+      background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .about-lead {
+      font-size: 12.5px; font-weight: 700; letter-spacing: .16em;
+      color: var(--pink); margin-bottom: 12px;
+    }
+    .about-mid { margin-top: 16px; font-size: 15.5px; line-height: 1.9; color: var(--t2); }
+    .about-mid strong { color: var(--ink); font-weight: 700; }
+
+    .exp-stack { position: relative; height: 300px; margin-top: 4px; }
+    .exp-slide {
+      position: absolute; inset: 0;
+      background: #fff; border: 1px solid var(--line); border-radius: 24px;
+      padding: 26px 28px;
+      box-shadow: 0 22px 50px -24px rgba(255,92,158,.28);
+      transition: transform .6s var(--ease), opacity .6s var(--ease);
+      overflow: hidden;
+    }
+    .exp-slide.front { transform: translateX(0) scale(1); opacity: 1; z-index: 4; }
+    .exp-slide.back-left { transform: translateX(-4%) scale(.96) rotate(-1.5deg); opacity: .4; z-index: 3; pointer-events: none; }
+    .exp-slide.back-right { transform: translateX(3.5%) scale(.96); opacity: .4; z-index: 3; pointer-events: none; }
+    .exp-slide.back-far { transform: translateX(7%) scale(.91); opacity: .12; z-index: 2; pointer-events: none; }
+    .exp-slide.hidden { transform: translateX(10%) scale(.9); opacity: 0; z-index: 1; pointer-events: none; }
+    .exp-date { font-size: 12.5px; font-weight: 800; letter-spacing: .08em; color: var(--pink); }
+    .exp-slide h4 { font-size: 20px; font-weight: 800; margin-top: 6px; }
+    .exp-co { font-size: 13px; color: var(--t3); margin: 4px 0 12px; }
+    .exp-points li {
+      font-size: 14px; color: var(--t2); position: relative;
+      padding-left: 16px; margin-top: 7px; line-height: 1.7;
+    }
+    .exp-points li::before { content: "·"; position: absolute; left: 4px; top: 0; color: var(--pink); font-weight: 800; }
+
+    .exp-nav { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+    .exp-arrow {
+      flex: 0 0 auto;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: #fff; border: 1px solid var(--line);
+      display: inline-flex; align-items: center; justify-content: center;
+      color: var(--t2); font-size: 18px; line-height: 1;
+      transition: all .3s var(--ease);
+    }
+    .exp-arrow:hover { color: #fff; background: var(--grad); border-color: transparent; transform: scale(1.06); }
+    .exp-years { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+    .exp-year {
+      font-size: 12.5px; font-weight: 700; color: var(--t3);
+      padding: 7px 14px; border-radius: 999px;
+      border: 1px solid var(--line); background: #fff;
+      transition: all .3s var(--ease);
+    }
+    .exp-year:hover { color: var(--pink); border-color: #ffcfe2; }
+    .exp-year.active { color: #fff; background: var(--grad); border-color: transparent; }
+    .skill-strip { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
 
     /* ===== 交流 ===== */
-    .contact-card { background: #fff; border: 1px solid var(--line); border-radius: 22px; padding: 8px 24px; }
-    .c-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--line); }
-    .c-row:last-child { border-bottom: 0; }
+    .contact-card { padding: 0; }
+    .c-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      padding: 14px 18px; border-radius: 14px;
+      transition: background .35s var(--ease), transform .35s var(--ease);
+    }
+    .c-row + .c-row { margin-top: 2px; }
+    .c-row:hover { background: linear-gradient(120deg, #fff0f6, #f3edff); transform: translateX(6px); }
     .c-row .k { font-size: 13px; font-weight: 700; color: var(--t3); display: flex; align-items: center; gap: 10px; }
     .c-row .k .ico { width: 22px; height: 22px; border-radius: 50%; background: var(--grad); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; }
     .c-row .v { font-size: 15px; font-weight: 600; }
@@ -358,24 +370,64 @@
 
     footer { padding: 40px 0 60px; text-align: center; color: var(--t3); font-size: 13px; }
 
+    /* ===== 左侧固定导航 ===== */
+    .sidenav {
+      position: fixed; left: 26px; top: 50%; transform: translateY(-50%);
+      z-index: 80;
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .snav-item {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 13px; font-weight: 600; color: var(--t3);
+      padding: 7px 12px; border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(8px);
+      border: 1px solid transparent;
+      transition: color .3s var(--ease), border-color .3s var(--ease), background .3s var(--ease);
+    }
+    .snav-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .45; transition: all .3s var(--ease); }
+    .snav-label { white-space: nowrap; }
+    .snav-item:hover { color: var(--pink); border-color: var(--line); }
+    .snav-item.active { color: var(--pink); }
+    .snav-item.active .snav-dot { width: 8px; height: 8px; background: var(--grad); opacity: 1; }
+    .snav-top {
+      width: 36px; height: 36px; padding: 0; justify-content: center;
+      color: #fff; background: var(--grad); border: 0;
+      box-shadow: 0 8px 20px -6px rgba(255,92,158,.5);
+    }
+    .snav-top:hover, .snav-top.active { color: #fff; border-color: transparent; }
+    .snav-ico { font-size: 16px; line-height: 1; }
+
     /* ===== 响应式 ===== */
     @media (max-width: 760px) {
-      .mascot { right: 50%; top: auto; transform: translateX(50%); width: 150px; margin-top: 24px; position: relative; }
-      .mascot { animation: hero-enter 1.5s var(--ease) .5s forwards, breathe 5.4s ease-in-out 2s infinite; }
-      .about-grid { grid-template-columns: 1fr; }
+      .avatar { position: relative; right: auto; top: auto; width: 150px; margin: 24px auto 0; }
       .acard { grid-template-columns: 1fr; }
-      .exp { grid-template-columns: 1fr; gap: 8px; }
-      .reel-number { font-size: 88px; top: -34px; }
+      .exp-stack { height: 380px; }
+      .exp-slide { padding: 22px 20px; }
+      .exp-nav { flex-wrap: wrap; }
+      .exp-years { order: 3; width: 100%; }
       .progress-num { display: none; }
+    }
+    @media (max-width: 1100px) {
+      .sidenav { display: none; }
     }
   </style>
 </head>
-<body>
+<body id="top">
+
+  <!-- 左侧固定导航 -->
+  <nav class="sidenav" aria-label="页面导航">
+    <a class="snav-item snav-top" href="#top" data-target="top" title="回到顶部" aria-label="回到顶部"><span class="snav-ico">↑</span></a>
+    <a class="snav-item" href="#panel-about" data-target="panel-about"><span class="snav-dot"></span><span class="snav-label">关于我</span></a>
+    <a class="snav-item" href="#panel-projects" data-target="panel-projects"><span class="snav-dot"></span><span class="snav-label">项目</span></a>
+    <a class="snav-item" href="#panel-articles" data-target="panel-articles"><span class="snav-dot"></span><span class="snav-label">文章</span></a>
+    <a class="snav-item" href="#panel-contact" data-target="panel-contact"><span class="snav-dot"></span><span class="snav-label">交流</span></a>
+  </nav>
 
   <!-- 加载页 -->
   <div class="loader" id="loader" role="status" aria-label="加载中">
     <div class="loader-inner">
-      <div class="loader-mark">GL®</div>
+      <div class="loader-mark">GL<sup>™</sup></div>
       <div class="loader-track"><i></i></div>
     </div>
   </div>
@@ -391,21 +443,21 @@
 
   <div class="col">
     <header class="nav">
-      <span class="brand"><span class="dot"></span>高丽丽®</span>
-      <a href="https://github.com/gaolili" target="_blank" rel="noopener">GitHub ↗</a>
+      <span class="brand"><span class="dot"></span>Gala™</span>
+      <a href="https://github.com/LalaGa-1119" target="_blank" rel="noopener">GitHub ↗</a>
     </header>
 
     <main>
       <!-- Hero -->
       <div class="hero">
         <h1>
-          <span class="lmask"><span>高丽丽<sup>®</sup></span></span>
-          <span class="lmask"><span class="grad-text">makes</span></span>
-          <span class="lmask"><span>things. ✨</span></span>
+          <span class="lmask"><span>Gala<sup>™</sup></span></span>
+          <span class="lmask"><span class="grad-text">product</span></span>
+          <span class="lmask"><span class="grad-text">builder.</span></span>
         </h1>
         <div class="sub">
-          <span class="zh">欧 呦 · 把想法做成产品</span>
-          <span class="en">PRODUCT MANAGER / WRITER / BEIJING</span>
+          <span class="zh">把想法做成产品</span>
+          <span class="en">PRODUCT MANAGER / BEIJING</span>
         </div>
         <div class="meta-row">
           <span class="meta-chip">📍 北京</span>
@@ -414,39 +466,89 @@
           <span class="meta-chip">爱写产品思考</span>
         </div>
 
-        <!-- 吉祥物 -->
-        <div class="mascot" aria-hidden="true">
-          <span class="bow">🎀</span>
-          <div class="body"></div>
-          <span class="eye eye-l"><i></i></span>
-          <span class="eye eye-r"><i></i></span>
-          <span class="blush blush-l"></span>
-          <span class="blush blush-r"></span>
-          <span class="smile"></span>
+        <!-- 个人头像 -->
+        <div class="avatar">
+          <img class="photo" src="个人头像.jpg" alt="高丽丽 个人头像" />
+          <div class="cat" id="cat">
+            <img id="catImg" src="cat/cat-look-center.png" alt="猫咪" data-dir="center" />
+          </div>
         </div>
 
         <div class="hint-row">
           <span class="arrow">↓ 往下滑</span>
-          <button class="motion-btn" id="motionBtn" type="button">开启体感</button>
         </div>
       </div>
 
       <!-- Works -->
       <div class="works">
-        <div class="reel-number" aria-hidden="true">
-          <div class="reel-col"><div class="strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span></div></div>
-          <div class="reel-col"><div class="strip"><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></div></div>
-        </div>
+        <!-- 关于我 -->
+        <section class="panel" id="panel-about">
+          <div class="panel-head">
+            <h2>关于我</h2>
+            <p>从用户需求，到产品落地</p>
+          </div>
+          <div class="about-intro">
+            <p class="about-lead">从真实需求出发，让想法一步步落地</p>
+            <p class="about-big">我是<span class="grad">高丽丽</span>，一名坐标北京的产品经理。</p>
+            <p class="about-mid">我喜欢从真实场景出发，把复杂问题拆清楚，把模糊的想法变成可执行、能落地的产品方案。</p>
+            <p class="about-mid">2 年产品实践中，我参与了 6 个从 0 到 1 项目，熟悉<strong>需求分析</strong>、<strong>产品规划</strong>、<strong>原型设计</strong>与<strong>跨团队协作</strong>。</p>
+            <p class="about-mid">我相信，好产品不是功能的堆叠，而是对真实问题的准确回应。工作之外，在「人人都是产品经理」等平台记录实践，分享自己的产品思考。</p>
+          </div>
 
-        <div class="tabs" role="tablist" aria-label="内容分类">
-          <button class="tab active" data-num="01" data-target="panel-projects">项目</button>
-          <button class="tab" data-num="02" data-target="panel-articles">文章</button>
-          <button class="tab" data-num="03" data-target="panel-about">关于我</button>
-          <button class="tab" data-num="04" data-target="panel-contact">交流</button>
-        </div>
+          <div class="panel-head" style="margin-top:36px"><h2 style="font-size:22px">工作经历</h2></div>
+          <div class="exp-stack">
+            <div class="exp-slide" data-year="2023 — 至今">
+              <div class="exp-date">2023 — 至今</div>
+              <h4>产品经理</h4>
+              <div class="exp-co">某某互联网公司 · B 端 SaaS</div>
+              <ul class="exp-points">
+                <li>负责企业级管理后台的需求梳理与迭代规划，推动 3 个大版本上线。</li>
+                <li>通过用户调研与数据分析优化核心流程，关键指标提升 25%。</li>
+              </ul>
+            </div>
+            <div class="exp-slide" data-year="2022 — 2023">
+              <div class="exp-date">2022 — 2023</div>
+              <h4>产品助理</h4>
+              <div class="exp-co">某某科技公司 · 移动端社区</div>
+              <ul class="exp-points">
+                <li>协助完成社区 App 的原型设计与 PRD 撰写，跟进开发与验收。</li>
+                <li>参与用户反馈收集与竞品分析，输出多份产品调研报告。</li>
+              </ul>
+            </div>
+            <div class="exp-slide" data-year="2021 — 2022">
+              <div class="exp-date">2021 — 2022</div>
+              <h4>产品实习生</h4>
+              <div class="exp-co">某某出行公司 · 用户增长</div>
+              <ul class="exp-points">
+                <li>参与增长实验的数据埋点与回收，辅助输出 3 份 A/B 测试报告。</li>
+                <li>梳理用户反馈工单，沉淀常见问题库，协助客服效率提升。</li>
+              </ul>
+            </div>
+            <div class="exp-slide" data-year="2019 — 2021">
+              <div class="exp-date">2019 — 2021</div>
+              <h4>校园创业项目</h4>
+              <div class="exp-co">校园生活服务平台</div>
+              <ul class="exp-points">
+                <li>从 0 到 1 搭建校园二手交易小程序，负责需求与原型。</li>
+                <li>运营校园社群 20+，累计覆盖用户 5000+。</li>
+              </ul>
+            </div>
+          </div>
+          <div class="exp-nav">
+            <button class="exp-arrow" id="expPrev" aria-label="上一条">←</button>
+            <div class="exp-years" id="expYears"></div>
+            <button class="exp-arrow" id="expNext" aria-label="下一条">→</button>
+          </div>
+
+          <div class="skill-strip">
+            <span class="ptag">需求分析</span><span class="ptag">产品规划</span><span class="ptag">用户研究</span>
+            <span class="ptag">原型设计</span><span class="ptag">数据分析</span><span class="ptag">项目管理</span>
+            <span class="ptag">Axure</span><span class="ptag">Figma</span><span class="ptag">SQL</span>
+          </div>
+        </section>
 
         <!-- 项目 -->
-        <section class="panel active" id="panel-projects" role="tabpanel">
+        <section class="panel" id="panel-projects">
           <div class="panel-head">
             <h2>项目作品</h2>
             <p>参与 6 个从 0 到 1 的项目 · 每张卡片都是会动的「活演示」</p>
@@ -501,7 +603,7 @@
         </section>
 
         <!-- 文章 -->
-        <section class="panel" id="panel-articles" role="tabpanel">
+        <section class="panel" id="panel-articles">
           <div class="panel-head">
             <h2>文章</h2>
             <p>在「人人都是产品经理」等平台分享产品思考</p>
@@ -538,73 +640,24 @@
           </a>
         </section>
 
-        <!-- 关于我 -->
-        <section class="panel" id="panel-about" role="tabpanel">
-          <div class="panel-head">
-            <h2>关于我</h2>
-            <p>从用户需求，到产品落地</p>
-          </div>
-          <div class="about-grid">
-            <div class="about-card">
-              <div class="lead">我是一名产品经理，现居北京。2 年产品经验，先后参与 6 个从 0 到 1 的项目。</div>
-            </div>
-            <div class="about-card">
-              <p>擅长需求分析、原型设计与跨团队协作，相信好产品源于对用户真实场景的洞察，也喜欢把复杂问题拆解成清晰、可落地的方案。</p>
-              <p>工作之余坚持写作，在「人人都是产品经理」等平台分享产品思考。</p>
-            </div>
-          </div>
-
-          <div class="panel-head" style="margin-top:8px"><h2 style="font-size:22px">工作经历</h2></div>
-          <div class="exp-list">
-            <div class="exp">
-              <div class="date">2023 — 至今</div>
-              <div>
-                <h4>产品经理</h4>
-                <div class="co">某某互联网公司 · B 端 SaaS</div>
-                <ul>
-                  <li>负责企业级管理后台的需求梳理与迭代规划，推动 3 个大版本上线。</li>
-                  <li>通过用户调研与数据分析优化核心流程，关键指标提升 25%。</li>
-                </ul>
-              </div>
-            </div>
-            <div class="exp">
-              <div class="date">2022 — 2023</div>
-              <div>
-                <h4>产品助理</h4>
-                <div class="co">某某科技公司 · 移动端社区</div>
-                <ul>
-                  <li>协助完成社区 App 的原型设计与 PRD 撰写，跟进开发与验收。</li>
-                  <li>参与用户反馈收集与竞品分析，输出多份产品调研报告。</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="skill-strip">
-            <span class="ptag">需求分析</span><span class="ptag">产品规划</span><span class="ptag">用户研究</span>
-            <span class="ptag">原型设计</span><span class="ptag">数据分析</span><span class="ptag">项目管理</span>
-            <span class="ptag">Axure</span><span class="ptag">Figma</span><span class="ptag">SQL</span>
-          </div>
-        </section>
-
         <!-- 交流 -->
-        <section class="panel" id="panel-contact" role="tabpanel">
+        <section class="panel" id="panel-contact">
           <div class="panel-head">
             <h2>交流</h2>
             <p>欢迎来聊产品、写作或合作机会</p>
           </div>
           <div class="contact-card">
-            <div class="c-row"><span class="k"><span class="ico">✉</span>邮箱</span><span class="v"><a href="mailto:gaolili@example.com">gaolili@example.com</a></span></div>
-            <div class="c-row"><span class="k"><span class="ico">◎</span>GitHub</span><span class="v"><a href="https://github.com/gaolili" target="_blank">github.com/gaolili</a></span></div>
-            <div class="c-row"><span class="k"><span class="ico">✎</span>人人都是产品经理</span><span class="v"><a href="https://www.woshipm.com/evaluating/6443589.html" target="_blank">查看文章 →</a></span></div>
-            <div class="c-row"><span class="k"><span class="ico">💬</span>微信</span><span class="v">gaolili_wechat</span></div>
-            <div class="c-row"><span class="k"><span class="ico">📱</span>手机</span><span class="v">138-0000-0000</span></div>
+            <div class="c-row"><span class="k"><span class="ico">✉</span>邮箱</span><span class="v"><a href="mailto:galala20071119@gmail.com">galala20071119@gmail.com</a></span></div>
+            <div class="c-row"><span class="k"><span class="ico">◎</span>GitHub</span><span class="v"><a href="https://github.com/LalaGa-1119" target="_blank" rel="noopener">github.com/LalaGa-1119</a></span></div>
+            <div class="c-row"><span class="k"><span class="ico">✎</span>人人都是产品经理</span><span class="v"><a href="https://www.woshipm.com/u/1685119" target="_blank" rel="noopener">woshipm.com/u/1685119</a></span></div>
+            <div class="c-row"><span class="k"><span class="ico">💬</span>微信</span><span class="v">lilimoyue</span></div>
+            <div class="c-row"><span class="k"><span class="ico">📱</span>手机</span><span class="v">15210745496</span></div>
           </div>
         </section>
       </div>
     </main>
 
-    <footer>© 2024 高丽丽 · 用 ♥ 制作 · GL®</footer>
+    <footer>© 2024 Gala · 用 ♥ 制作 · Gala™</footer>
   </div>
 
   <script>
@@ -631,73 +684,110 @@
     addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // ===== Tab 切换 + 翻牌数字 =====
-    const tabs = document.querySelectorAll('.tab');
-    const panels = document.querySelectorAll('.panel');
-    const strips = document.querySelectorAll('.reel-col .strip');
-    function setReel(n) {
-      const s = String(n).padStart(2, '0');
-      [...strips].forEach((strip, i) => {
-        const d = +s[i] || 0;
-        strip.style.transform = 'translateY(-' + (d * 1) + 'em)';
-      });
-    }
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        panels.forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.target).classList.add('active');
-        setReel(tab.dataset.num);
-        scrollTo({ top: document.querySelector('.works').offsetTop - 20, behavior: 'smooth' });
-      });
-    });
-    setReel('01');
-
-    // ===== 眼睛跟随光标 =====
-    const root = document.documentElement;
-    let motionMode = false;
-    function setEyes(x, y) {
-      root.style.setProperty('--eye-x', (x * 5) + 'px');
-      root.style.setProperty('--eye-y', (y * 5) + 'px');
-    }
-    document.addEventListener('mousemove', e => {
-      if (motionMode) return;
-      const m = document.querySelector('.mascot');
-      if (!m) return;
-      const r = m.getBoundingClientRect();
-      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-      let dx = (e.clientX - cx) / (r.width / 2);
-      let dy = (e.clientY - cy) / (r.height / 2);
-      const len = Math.hypot(dx, dy);
-      if (len > 1) { dx /= len; dy /= len; }
-      setEyes(dx, dy);
-    });
-
-    // ===== 体感（陀螺仪） =====
-    const motionBtn = document.getElementById('motionBtn');
-    function onTilt(e) {
-      const x = Math.max(-1, Math.min(1, e.gamma / 22));
-      const y = Math.max(-1, Math.min(1, e.beta / 22));
-      setEyes(x, -y);
-    }
-    motionBtn.addEventListener('click', async () => {
-      if (motionMode) {
-        motionMode = false;
-        motionBtn.textContent = '开启体感';
-        window.removeEventListener('deviceorientation', onTilt);
-        return;
-      }
-      try {
-        if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-          const r = await DeviceOrientationEvent.requestPermission();
-          if (r !== 'granted') return;
+    // ===== 左侧导航：平滑跳转 + 滚动高亮 =====
+    const snavItems = document.querySelectorAll('.snav-item');
+    const snavSections = ['panel-about', 'panel-projects', 'panel-articles', 'panel-contact']
+      .map(id => document.getElementById(id));
+    snavItems.forEach(item => {
+      item.addEventListener('click', e => {
+        e.preventDefault();
+        const t = item.dataset.target;
+        if (t === 'top') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          const el = document.getElementById(t);
+          if (el) {
+            const top = el.getBoundingClientRect().top + scrollY;
+            window.scrollTo({ top: top - 24, behavior: 'smooth' });
+          }
         }
-      } catch (err) {}
-      motionMode = true;
-      motionBtn.textContent = '体感已开启';
-      window.addEventListener('deviceorientation', onTilt);
+      });
     });
+    function onSnavScroll() {
+      const probe = scrollY + innerHeight * 0.28;
+      let current = 'top';
+      snavSections.forEach(sec => {
+        if (sec) {
+          const top = sec.getBoundingClientRect().top + scrollY;
+          if (top <= probe) current = sec.id;
+        }
+      });
+      snavItems.forEach(item => item.classList.toggle('active', item.dataset.target === current));
+    }
+    addEventListener('scroll', onSnavScroll, { passive: true });
+    onSnavScroll();
+
+    // ===== 工作经历：叠卡 + 按年份左右滑动 =====
+    const expSlides = Array.from(document.querySelectorAll('.exp-slide'));
+    const expYears = document.getElementById('expYears');
+    const expPrev = document.getElementById('expPrev');
+    const expNext = document.getElementById('expNext');
+    let expIndex = 0;
+
+    function renderExp() {
+      expSlides.forEach((slide, i) => {
+        const d = i - expIndex;
+        slide.classList.remove('front', 'back-left', 'back-right', 'back-far', 'hidden');
+        if (d === 0) slide.classList.add('front');
+        else if (d === -1) slide.classList.add('back-left');
+        else if (d === 1) slide.classList.add('back-right');
+        else if (d === 2) slide.classList.add('back-far');
+        else slide.classList.add('hidden');
+      });
+      expYears.querySelectorAll('.exp-year').forEach((b, i) => {
+        b.classList.toggle('active', i === expIndex);
+      });
+    }
+    function goExp(i) {
+      expIndex = (i + expSlides.length) % expSlides.length;
+      renderExp();
+    }
+    // 按年份生成导航
+    expSlides.forEach((slide, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'exp-year';
+      btn.type = 'button';
+      btn.textContent = slide.dataset.year;
+      btn.addEventListener('click', () => goExp(i));
+      expYears.appendChild(btn);
+    });
+    expPrev.addEventListener('click', () => goExp(expIndex - 1));
+    expNext.addEventListener('click', () => goExp(expIndex + 1));
+    renderExp();
+
+    // ===== 猫咪眼睛跟随鼠标 =====
+    const catEl = document.getElementById('cat');
+    const catImg = document.getElementById('catImg');
+    const CAT_DIRS = {
+      center: 'cat/cat-look-center.png',
+      up:     'cat/cat-look-up.png',
+      down:   'cat/cat-look-down.png',
+      left:   'cat/cat-look-left.png',
+      right:  'cat/cat-look-right.png'
+    };
+    // 预加载所有方向，避免切换时闪烁
+    Object.values(CAT_DIRS).forEach(src => { const im = new Image(); im.src = src; });
+    let catDir = 'center';
+    function setCat(dir) {
+      if (dir === catDir) return;
+      catDir = dir;
+      catImg.dataset.dir = dir;
+      catImg.src = CAT_DIRS[dir];
+    }
+    window.addEventListener('mousemove', (e) => {
+      const r = catEl.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      const dx = e.clientX - cx;
+      const dy = e.clientY - cy;
+      let dir = 'center';
+      if (Math.hypot(dx, dy) > 34) {
+        dir = Math.abs(dx) > Math.abs(dy)
+          ? (dx > 0 ? 'right' : 'left')
+          : (dy > 0 ? 'down' : 'up');
+      }
+      setCat(dir);
+    }, { passive: true });
   </script>
 </body>
 </html>
