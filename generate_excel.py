@@ -151,5 +151,5 @@ for ws in wb.worksheets[1:]:
 ws = wb["基本信息"]
 ws.freeze_panes = "A2"
 
-wb.save("个人信息.xlsx")
-print("已生成：个人信息.xlsx")
+wb.save("profile-info.xlsx")
+print("Generated: profile-info.xlsx")

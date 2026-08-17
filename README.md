@@ -1,36 +1,37 @@
-# 高丽丽 · 个人主页
+# Lili Gao · Personal Portfolio
 
-> 产品经理 · 北京 · 2 年经验 · 6 个从 0 到 1 的项目
+> Product Manager · Beijing · 2 years of experience · 6 zero-to-one projects
 
-一个单文件即可运行的个人主页（无需构建工具），版式致敬 Oil®，配色为粉嫩 + 炫彩渐变。
+A single-file personal portfolio that runs without a build step. Its editorial layout is inspired by Oil®, with soft pink tones and vivid gradients.
 
-## 功能
+## Features
 
-- 加载页动画、逐行文字浮现
-- 背景网格 + 光晕 + 漂浮色块
-- 吉祥物眼睛跟随光标 / 手机体感（陀螺仪）
-- 阅读进度条
-- Tab 切换 + 翻牌数字
-- 项目卡片「活演示」（纯 CSS 动画）
-- 文章区：人人都是产品经理专栏文章（含缩略头图，可点击跳转）
+- Animated loading screen and line-by-line text reveals
+- Grid background, ambient glows, and floating color blocks
+- Mascot eyes that follow the pointer or mobile gyroscope
+- Reading progress indicator
+- Tab navigation and animated statistics
+- Project cards with live CSS demos
+- Writing section linking to articles published on Woshipm
 
-## 在线访问
+## Live Site
 
 👉 https://lalaga-1119.github.io/
 
-## 本地运行
+## Run Locally
 
-直接用浏览器打开 `index.html` 即可，或：
+Open `index.html` directly in a browser, or run:
 
 ```bash
 open index.html
 ```
 
-## 文件说明
+## Files
 
-| 文件 | 说明 |
-|------|------|
-| `index.html` | 主页（单文件，全部样式与脚本内联） |
-| `article-cover.jpg` | 文章缩略头图 |
-| `个人信息.xlsx` | 个人信息的 Excel 版本 |
-| `生成excel.py` | 生成 Excel 的脚本（需 openpyxl） |
+| File | Description |
+| --- | --- |
+| `index.html` | Complete single-file portfolio with inline styles and scripts |
+| `article-cover.jpg` | Article thumbnail |
+| `profile-photo.jpg` | Portrait used on the homepage |
+| `profile-info.xlsx` | Portfolio information in Excel format |
+| `generate_excel.py` | Script that generates the spreadsheet; requires `openpyxl` |
