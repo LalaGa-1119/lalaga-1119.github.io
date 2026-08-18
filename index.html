@@ -273,6 +273,15 @@
     .f-check { font-size: 12.5px; font-weight: 700; color: var(--pink); opacity: 0; animation: pop .5s var(--spring) 1s forwards; }
     .f-btn { margin-left: auto; font-size: 12.5px; font-weight: 700; color: #fff; background: var(--grad); border-radius: 99px; padding: 7px 16px; opacity: 0; animation: pop .5s var(--spring) 1.3s forwards; }
 
+    /* 演示 4：质检结果 */
+    .demo-check { flex-direction: column; align-items: stretch; justify-content: center; padding: 16px 20px; gap: 8px; }
+    .qc-row { display: flex; align-items: center; gap: 10px; font-size: 12.5px; }
+    .qc-msg { flex: 1; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 8px 12px; font-weight: 600; color: var(--ink); }
+    .qc-badge { flex: 0 0 auto; font-size: 11px; font-weight: 800; border-radius: 99px; padding: 4px 10px; }
+    .qc-badge.ok { background: #e7f9f0; color: #19a974; }
+    .qc-badge.warn { background: #fff3e0; color: #e8890c; }
+    .qc-stat { text-align: center; font-size: 13px; font-weight: 800; color: var(--pink); background: var(--hl); border-radius: 12px; padding: 8px 12px; }
+
     /* ===== 文章卡片 ===== */
     .acard {
       display: grid; grid-template-columns: 200px 1fr; gap: 22px;
@@ -310,7 +319,7 @@
     .about-mid { margin-top: 16px; font-size: 15.5px; line-height: 1.9; color: var(--t2); }
     .about-mid strong { color: var(--ink); font-weight: 700; }
 
-    .exp-stack { position: relative; height: 300px; margin-top: 4px; }
+    .exp-stack { position: relative; height: 400px; margin-top: 4px; }
     .exp-slide {
       position: absolute; inset: 0;
       background: #fff; border: 1px solid var(--line); border-radius: 24px;
@@ -402,7 +411,7 @@
     @media (max-width: 760px) {
       .avatar { position: relative; right: auto; top: auto; width: 150px; margin: 24px auto 0; }
       .acard { grid-template-columns: 1fr; }
-      .exp-stack { height: 380px; }
+      .exp-stack { height: 500px; }
       .exp-slide { padding: 22px 20px; }
       .exp-nav { flex-wrap: wrap; }
       .exp-years { order: 3; width: 100%; }
@@ -457,12 +466,12 @@
         </h1>
         <div class="sub">
           <span class="zh">把想法做成产品</span>
-          <span class="en">PRODUCT MANAGER / BEIJING</span>
+          <span class="en">AI PRODUCT MANAGER / BEIJING</span>
         </div>
         <div class="meta-row">
           <span class="meta-chip">📍 北京</span>
-          <span class="meta-chip">2 年经验</span>
-          <span class="meta-chip">6 个项目</span>
+          <span class="meta-chip">AI 产品运营</span>
+          <span class="meta-chip">AI 质检 · 自动化</span>
           <span class="meta-chip">爱写产品思考</span>
         </div>
 
@@ -489,48 +498,52 @@
           </div>
           <div class="about-intro">
             <p class="about-lead">从真实需求出发，让想法一步步落地</p>
-            <p class="about-big">我是<span class="grad">高丽丽</span>，一名坐标北京的产品经理。</p>
+            <p class="about-big">我是<span class="grad">高丽丽</span>，一名坐标北京的 AI 产品经理。</p>
             <p class="about-mid">我喜欢从真实场景出发，把复杂问题拆清楚，把模糊的想法变成可执行、能落地的产品方案。</p>
-            <p class="about-mid">2 年产品实践中，我参与了 6 个从 0 到 1 项目，熟悉<strong>需求分析</strong>、<strong>产品规划</strong>、<strong>原型设计</strong>与<strong>跨团队协作</strong>。</p>
+            <p class="about-mid">在 AI 产品实践中，我熟悉<strong>需求分析</strong>、<strong>产品规划</strong>、<strong>Prompt 工程</strong>与<strong>跨团队协作</strong>，擅长把复杂问题拆解为可执行、可落地的方案。</p>
             <p class="about-mid">我相信，好产品不是功能的堆叠，而是对真实问题的准确回应。工作之外，在「人人都是产品经理」等平台记录实践，分享自己的产品思考。</p>
           </div>
 
           <div class="panel-head" style="margin-top:36px"><h2 style="font-size:22px">工作经历</h2></div>
           <div class="exp-stack">
-            <div class="exp-slide" data-year="2023 — 至今">
-              <div class="exp-date">2023 — 至今</div>
-              <h4>产品经理</h4>
-              <div class="exp-co">某某互联网公司 · B 端 SaaS</div>
+            <div class="exp-slide" data-year="2025.11 — 2026.06">
+              <div class="exp-date">2025.11 — 2026.06</div>
+              <h4>AI 产品运营</h4>
+              <div class="exp-co">广州欢乐童年科技有限公司</div>
               <ul class="exp-points">
-                <li>负责企业级管理后台的需求梳理与迭代规划，推动 3 个大版本上线。</li>
-                <li>通过用户调研与数据分析优化核心流程，关键指标提升 25%。</li>
+                <li>主讲全链路 AI 质检：统一 CRM、企微、外呼多渠道到企微，质检覆盖率 87.5%→98%；10 个语义点 SOP 转 AI 规则，首联执行率 93%→99%，不合格占比 59.4%→30%。</li>
+                <li>班班质检系统（独立负责）：用 Coze 工作流 + 飞书多维表格 + 前端看板搭建自动化质检，准确率 98%，人工耗时 2.5h/天→0.5h/天，效率提升 80%。</li>
+                <li>数据治理与需求方案：统一数据存储规范，解决服务数据分散；输出退费挽单、旷课跟进、作业催交等质检需求方案。</li>
               </ul>
             </div>
-            <div class="exp-slide" data-year="2022 — 2023">
-              <div class="exp-date">2022 — 2023</div>
-              <h4>产品助理</h4>
-              <div class="exp-co">某某科技公司 · 移动端社区</div>
+            <div class="exp-slide" data-year="2024.03 — 2025.10">
+              <div class="exp-date">2024.03 — 2025.10</div>
+              <h4>数据标注 / AI 训练师</h4>
+              <div class="exp-co">拾叁益傲（北京）文化有限公司</div>
               <ul class="exp-points">
-                <li>协助完成社区 App 的原型设计与 PRD 撰写，跟进开发与验收。</li>
-                <li>参与用户反馈收集与竞品分析，输出多份产品调研报告。</li>
+                <li>模型工程与优化：负责 AI 模型从数据准备（标注、清洗、增强）到训练、调优的全流程，具备模型性能分析与问题诊断能力。</li>
+                <li>项目管理与执行：主导 PE 工程项目，负责资源协调、进度管控、质量保障及 Prompt Engineering 等关键环节落地。</li>
+                <li>需求对接与工具链：联动产品与研发，将模糊业务需求转化为可执行的 AI 解决方案；善用 Coze/Dify 构建标准化、可复用工作流。</li>
               </ul>
             </div>
-            <div class="exp-slide" data-year="2021 — 2022">
-              <div class="exp-date">2021 — 2022</div>
-              <h4>产品实习生</h4>
-              <div class="exp-co">某某出行公司 · 用户增长</div>
+            <div class="exp-slide" data-year="2019.08 — 2021.07">
+              <div class="exp-date">2019.08 — 2021.07</div>
+              <h4>有声书制作</h4>
+              <div class="exp-co">北京美淇霖文化传媒有限公司</div>
               <ul class="exp-points">
-                <li>参与增长实验的数据埋点与回收，辅助输出 3 份 A/B 测试报告。</li>
-                <li>梳理用户反馈工单，沉淀常见问题库，协助客服效率提升。</li>
+                <li>剧组组建与管理：搭建有声书剧组，筛选配音、后期人员并明确分工，保障人员适配项目需求。</li>
+                <li>制作全流程跟进：统筹前期定位、中期把控、后期终审，跟踪进度、解决问题，确保按时按质交付。</li>
+                <li>参与录制：以主播身份参与核心内容录制，把控情感基调，配合校对录音素材，保障录制质量。</li>
               </ul>
             </div>
-            <div class="exp-slide" data-year="2019 — 2021">
-              <div class="exp-date">2019 — 2021</div>
-              <h4>校园创业项目</h4>
-              <div class="exp-co">校园生活服务平台</div>
+            <div class="exp-slide" data-year="2013.05 — 2018.03">
+              <div class="exp-date">2013.05 — 2018.03</div>
+              <h4>平面设计</h4>
+              <div class="exp-co">北京大朴至向家居设计有限公司</div>
               <ul class="exp-points">
-                <li>从 0 到 1 搭建校园二手交易小程序，负责需求与原型。</li>
-                <li>运营校园社群 20+，累计覆盖用户 5000+。</li>
+                <li>负责线上线下平面设计，确保符合品牌调性与传播目标。</li>
+                <li>设计电商/品牌店铺页面（首页、详情页等）与营销活动专题页，提升用户体验与转化。</li>
+                <li>设计线下物料（易拉宝、海报、展架等），保证线上线下风格统一。</li>
               </ul>
             </div>
           </div>
@@ -541,9 +554,9 @@
           </div>
 
           <div class="skill-strip">
-            <span class="ptag">需求分析</span><span class="ptag">产品规划</span><span class="ptag">用户研究</span>
-            <span class="ptag">原型设计</span><span class="ptag">数据分析</span><span class="ptag">项目管理</span>
-            <span class="ptag">Axure</span><span class="ptag">Figma</span><span class="ptag">SQL</span>
+            <span class="ptag">需求分析</span><span class="ptag">产品规划</span><span class="ptag">Prompt 工程</span>
+            <span class="ptag">AI 质检</span><span class="ptag">数据标注</span><span class="ptag">项目管理</span>
+            <span class="ptag">Coze</span><span class="ptag">Dify</span><span class="ptag">数据分析</span>
           </div>
         </section>
 
@@ -551,53 +564,37 @@
         <section class="panel" id="panel-projects">
           <div class="panel-head">
             <h2>项目作品</h2>
-            <p>参与 6 个从 0 到 1 的项目 · 每张卡片都是会动的「活演示」</p>
+            <p>AI 产品实践 · 每张卡片都是会动的「活演示」</p>
           </div>
 
           <div class="pcard">
             <span class="pnum">01</span>
-            <div class="stage demo-chart">
-              <span class="demo-label">本月活跃用户 · 持续增长 📈</span>
-              <div class="chart">
-                <i style="--h:42%;--d:0s"></i>
-                <i style="--h:66%;--d:.1s"></i>
-                <i style="--h:54%;--d:.2s"></i>
-                <i style="--h:88%;--d:.3s"></i>
-                <i style="--h:73%;--d:.4s"></i>
-                <i style="--h:96%;--d:.5s"></i>
-                <i style="--h:80%;--d:.6s"></i>
-              </div>
+            <div class="stage demo-check">
+              <div class="qc-row"><span class="qc-msg">客服：您好，请问需要什么帮助？</span><span class="qc-badge ok">✓ 合格</span></div>
+              <div class="qc-row"><span class="qc-msg">客服：已为您登记，请留意通知。</span><span class="qc-badge warn">! 复核</span></div>
+              <div class="qc-stat">准确率 98% · 人工耗时 ↓80%</div>
             </div>
-            <h3>数据看板产品</h3>
-            <p class="desc">面向运营团队的数据可视化平台，沉淀指标体系与报表能力。</p>
-            <div class="tags"><span class="ptag">数据产品</span><span class="ptag">指标设计</span><span class="ptag">Figma</span></div>
+            <h3>班班质检系统</h3>
+            <p class="desc">独立负责的自动化质检系统：用 Coze 工作流 + 飞书多维表格搭建，人工质检耗时从 2.5h/天降至 0.5h/天。</p>
+            <div class="tags"><span class="ptag">AI 质检</span><span class="ptag">Coze</span><span class="ptag">自动化</span><span class="ptag">2025.04 — 2026.06</span></div>
             <a class="go" href="#">查看项目 <span>→</span></a>
           </div>
 
           <div class="pcard">
             <span class="pnum">02</span>
-            <div class="stage demo-chat">
-              <div class="bubble left" style="--d:.3s">周末一起看展吗？🎨</div>
-              <div class="bubble right" style="--d:.9s">好呀好呀！</div>
-              <div class="bubble left" style="--d:1.5s">那我订票啦～</div>
-              <div class="typing" style="--d:2.1s"><i></i><i></i><i></i></div>
+            <div class="stage demo-chart">
+              <span class="demo-label">质检覆盖率 87.5% → 98% 📈</span>
+              <div class="chart">
+                <i style="--h:70%;--d:0s"></i>
+                <i style="--h:80%;--d:.1s"></i>
+                <i style="--h:87%;--d:.2s"></i>
+                <i style="--h:92%;--d:.3s"></i>
+                <i style="--h:98%;--d:.4s"></i>
+              </div>
             </div>
-            <h3>移动端社区 App</h3>
-            <p class="desc">负责用户增长与留存优化，通过 A/B 测试迭代核心体验。</p>
-            <div class="tags"><span class="ptag">用户增长</span><span class="ptag">A/B 测试</span><span class="ptag">社区</span></div>
-            <a class="go" href="#">查看项目 <span>→</span></a>
-          </div>
-
-          <div class="pcard">
-            <span class="pnum">03</span>
-            <div class="stage demo-form">
-              <div class="f-row"><span>需求优先级</span><span class="f-chip">P0 × 3</span></div>
-              <div class="f-input">产品需求：优化登录流程<span class="caret"></span></div>
-              <div class="f-row2"><span class="f-check">✓ 已排期</span><span class="f-btn">发布 →</span></div>
-            </div>
-            <h3>B 端 SaaS 后台改版</h3>
-            <p class="desc">企业级管理后台从 0 到 1，负责需求梳理、信息架构与原型设计。</p>
-            <div class="tags"><span class="ptag">B 端产品</span><span class="ptag">Axure</span><span class="ptag">需求管理</span></div>
+            <h3>主讲全链路 AI 质检体系</h3>
+            <p class="desc">梳理主讲首联多渠道（CRM、外呼、企微）业务逻辑并统一到企微，质检覆盖率从 87.5% 提升至 98%，降本 89%。</p>
+            <div class="tags"><span class="ptag">AI 质检</span><span class="ptag">首联 SOP</span><span class="ptag">降本增效</span><span class="ptag">2025.11 — 2026.04</span></div>
             <a class="go" href="#">查看项目 <span>→</span></a>
           </div>
         </section>
@@ -619,23 +616,23 @@
             </div>
           </a>
 
-          <a class="acard" href="#" target="_blank" rel="noopener">
-            <div class="thumb"><div class="ph">📝</div></div>
+          <a class="acard" href="https://mp.weixin.qq.com/s/yN2328dwCGcPKexcnjKUHA" target="_blank" rel="noopener">
+            <div class="thumb"><div class="ph">📱</div></div>
             <div class="info">
-              <span class="src">产品思考</span>
-              <h3>从需求到落地：我是怎么做需求分析的</h3>
-              <p>一篇关于需求拆解、优先级排序与跨团队协作的实战总结。</p>
-              <span class="more">了解更多 <span>→</span></span>
+              <span class="src">微信公众平台</span>
+              <h3>微信文章 ①</h3>
+              <p>mp.weixin.qq.com/s/yN2328dwCGcPKexcnjKUHA</p>
+              <span class="more">阅读全文 <span>→</span></span>
             </div>
           </a>
 
-          <a class="acard" href="#" target="_blank" rel="noopener">
-            <div class="thumb"><div class="ph">💡</div></div>
+          <a class="acard" href="https://mp.weixin.qq.com/s/IcB9lWJTe67dNc5DKQ1mCw" target="_blank" rel="noopener">
+            <div class="thumb"><div class="ph">📱</div></div>
             <div class="info">
-              <span class="src">产品思考</span>
-              <h3>用户调研的 5 个反常识</h3>
-              <p>那些看起来「应该这样做」、其实完全相反的用户研究方法。</p>
-              <span class="more">了解更多 <span>→</span></span>
+              <span class="src">微信公众平台</span>
+              <h3>微信文章 ②</h3>
+              <p>mp.weixin.qq.com/s/IcB9lWJTe67dNc5DKQ1mCw</p>
+              <span class="more">阅读全文 <span>→</span></span>
             </div>
           </a>
         </section>
@@ -657,7 +654,7 @@
       </div>
     </main>
 
-    <footer>© 2024 Gala · 用 ♥ 制作 · Gala™</footer>
+    <footer>© 2026 Gala · 用 ♥ 制作 · Gala™</footer>
   </div>
 
   <script>
