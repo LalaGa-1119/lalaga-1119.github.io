@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gala™ · product builder</title>
+  <title>高丽丽 Gala™ · AI 产品经理</title>
+  <meta name="description" content="高丽丽的 AI 产品经理作品集，聚焦教学服务 AI 质检、AI 图像评测、教学内容 CMS 与独立 AI 产品搭建。" />
   <style>
     /* ============================================================
        版式致敬 Oil®（欧呦）—— 加载页 / 逐行浮现 / 网格+光晕+漂浮色块
@@ -206,7 +207,7 @@
     .pcard {
       position: relative;
       background: #fff; border: 1px solid var(--line); border-radius: 22px;
-      padding: 26px; margin-bottom: 20px;
+      padding: 26px 26px 62px; margin-bottom: 20px;
       transition: transform .6s var(--ease), box-shadow .7s var(--ease), border-color .6s var(--ease);
       overflow: hidden;
     }
@@ -216,11 +217,33 @@
       font-weight: 800; font-size: 15px; color: var(--t3);
     }
     .pcard .stage {
-      height: 170px; border-radius: 16px; margin-bottom: 20px;
+      height: clamp(190px, 30vw, 300px); border-radius: 16px; margin-bottom: 20px;
       background: linear-gradient(135deg, #fff0f6, #f3edff);
       border: 1px solid var(--line);
       position: relative; overflow: hidden;
       display: flex; align-items: center; justify-content: center;
+    }
+    .pcard .stage .project-cover {
+      width: 100%; height: 100%; object-fit: cover; object-position: center;
+      display: block; transition: transform .8s var(--ease), filter .8s var(--ease);
+    }
+    .pcard:hover .stage .project-cover { transform: scale(1.025); filter: saturate(1.04); }
+    .pcard .project-demo-stage {
+      padding: clamp(10px, 2.2vw, 24px);
+      background-size: cover;
+      background-position: center;
+    }
+    .pcard .project-demo-stage.cms-demo { background-image: url("project-cms-bg.jpg"); }
+    .pcard .project-demo-stage.quality-demo { background-image: url("project-quality-inspection-bg.jpg"); }
+    .pcard .project-demo-stage .project-ui-shot {
+      width: auto; height: auto; max-width: 96%; max-height: 94%; object-fit: contain;
+      display: block; border-radius: 10px; border: 1px solid rgba(38, 89, 177, .18);
+      background: #fff; box-shadow: 0 18px 42px rgba(35, 77, 145, .18), 0 3px 10px rgba(35, 77, 145, .10);
+      transition: transform .8s var(--ease), box-shadow .8s var(--ease);
+    }
+    .pcard:hover .project-demo-stage .project-ui-shot {
+      transform: translateY(-3px) scale(1.012);
+      box-shadow: 0 24px 48px rgba(35, 77, 145, .22), 0 4px 12px rgba(35, 77, 145, .12);
     }
     .pcard h3 { font-size: 22px; font-weight: 800; letter-spacing: -.02em; }
     .pcard .desc { color: var(--t2); font-size: 14.5px; margin: 6px 0 14px; }
@@ -461,23 +484,24 @@
       <div class="hero">
         <h1>
           <span class="lmask"><span>Gala<sup>™</sup></span></span>
-          <span class="lmask"><span class="grad-text">product</span></span>
-          <span class="lmask"><span class="grad-text">builder.</span></span>
+          <span class="lmask"><span class="grad-text">AI product</span></span>
+          <span class="lmask"><span class="grad-text">manager.</span></span>
         </h1>
         <div class="sub">
-          <span class="zh">把想法做成产品</span>
-          <span class="en">AI PRODUCT MANAGER / BEIJING</span>
+          <span class="zh">把 AI 做成可验收、可落地、成本可控的产品</span>
+          <span class="en">AI PRODUCT MANAGER / AI APPLICATIONS / BEIJING</span>
         </div>
         <div class="meta-row">
           <span class="meta-chip">📍 北京</span>
-          <span class="meta-chip">AI 产品运营</span>
-          <span class="meta-chip">AI 质检 · 自动化</span>
-          <span class="meta-chip">爱写产品思考</span>
+          <span class="meta-chip">AI 产品经理</span>
+          <span class="meta-chip">AI 质检 · AI 图像 · CMS</span>
+          <span class="meta-chip">14 年工作经验</span>
+          <span class="meta-chip">独立 AI Builder</span>
         </div>
 
         <!-- 个人头像 -->
         <div class="avatar">
-          <img class="photo" src="profile-photo.jpg" alt="高丽丽 个人头像" />
+          <img class="photo" src="profile-photo-square.png" alt="高丽丽 个人头像" />
           <div class="cat" id="cat">
             <img id="catImg" src="cat/cat-look-center.png" alt="猫咪" data-dir="center" />
           </div>
@@ -497,53 +521,44 @@
             <p>从用户需求，到产品落地</p>
           </div>
           <div class="about-intro">
-            <p class="about-lead">从真实需求出发，让想法一步步落地</p>
+            <p class="about-lead">让 AI 落地可验证、可追踪、成本可控</p>
             <p class="about-big">我是<span class="grad">高丽丽</span>，一名坐标北京的 AI 产品经理。</p>
-            <p class="about-mid">我喜欢从真实场景出发，把复杂问题拆清楚，把模糊的想法变成可执行、能落地的产品方案。</p>
-            <p class="about-mid">在 AI 产品实践中，我熟悉<strong>需求分析</strong>、<strong>产品规划</strong>、<strong>Prompt 工程</strong>与<strong>跨团队协作</strong>，擅长把复杂问题拆解为可执行、可落地的方案。</p>
-            <p class="about-mid">我相信，好产品不是功能的堆叠，而是对真实问题的准确回应。工作之外，在「人人都是产品经理」等平台记录实践，分享自己的产品思考。</p>
+            <p class="about-mid">我有 14 年跨领域工作经验，近年聚焦 K12 教育 AI 产品，负责<strong>教学服务 AI 质检与教学内容 CMS</strong>两条产品线，覆盖业务调研、需求规划、方案设计、交付验收和持续迭代。</p>
+            <p class="about-mid">我主导将主讲与班班 9 类服务场景从抽检升级为标准化 AI 质检体系，擅长把 SOP 拆为<strong>AI 可判断语义点、数据字段、证据条件与人工复核机制</strong>，并通过人机对照定位数据问题与业务执行偏差。</p>
+            <p class="about-mid">在 AI 图像产品中，我能根据款式复杂度拆分推荐、快速试戴和精细试戴策略，平衡效果、速度与预算；也能在无产研支持时，借助 AI 编码工具独立完成前端页面、流程配置与内部上线。</p>
+            <p class="about-mid">中国传媒大学播音主持艺术学本科，普通话一级乙等；早期 UX/交互设计与有声内容制作经历，让我对用户体验、内容表达和交付质量保持敏感。</p>
           </div>
 
           <div class="panel-head" style="margin-top:36px"><h2 style="font-size:22px">工作经历</h2></div>
           <div class="exp-stack">
-            <div class="exp-slide" data-year="2025.11 — 2026.06">
-              <div class="exp-date">2025.11 — 2026.06</div>
-              <h4>AI 产品运营</h4>
-              <div class="exp-co">广州欢乐童年科技有限公司</div>
+            <div class="exp-slide" data-year="2024.06 — 2026.06">
+              <div class="exp-date">2024.06 — 2026.06</div>
+              <h4>AI 产品经理</h4>
+              <div class="exp-co">广州豌豆思维科技有限公司</div>
               <ul class="exp-points">
-                <li>主讲全链路 AI 质检：统一 CRM、企微、外呼多渠道到企微，质检覆盖率 87.5%→98%；10 个语义点 SOP 转 AI 规则，首联执行率 93%→99%，不合格占比 59.4%→30%。</li>
-                <li>班班质检系统（独立负责）：用 Coze 工作流 + 飞书多维表格 + 前端看板搭建自动化质检，准确率 98%，人工耗时 2.5h/天→0.5h/天，效率提升 80%。</li>
-                <li>数据治理与需求方案：统一数据存储规范，解决服务数据分散；输出退费挽单、旷课跟进、作业催交等质检需求方案。</li>
+                <li>负责 AI 质检与教学 CMS 两条产品线，从业务调研、需求规划、PRD 与原型，到交付验收和持续迭代。</li>
+                <li>制定 AI 质检规则、人机复核流程和内容审核发布标准，协调运营、教学、数据、AI 及研发团队完成交付。</li>
+                <li>推动质检结果进入教学周报，支持异常定位与教师辅导；产研调整后独立完成班班看板与 CMS 内部试用版本。</li>
               </ul>
             </div>
-            <div class="exp-slide" data-year="2024.03 — 2025.10">
-              <div class="exp-date">2024.03 — 2025.10</div>
-              <h4>数据标注 / AI 训练师</h4>
-              <div class="exp-co">拾叁益傲（北京）文化有限公司</div>
-              <ul class="exp-points">
-                <li>模型工程与优化：负责 AI 模型从数据准备（标注、清洗、增强）到训练、调优的全流程，具备模型性能分析与问题诊断能力。</li>
-                <li>项目管理与执行：主导 PE 工程项目，负责资源协调、进度管控、质量保障及 Prompt Engineering 等关键环节落地。</li>
-                <li>需求对接与工具链：联动产品与研发，将模糊业务需求转化为可执行的 AI 解决方案；善用 Coze/Dify 构建标准化、可复用工作流。</li>
-              </ul>
-            </div>
-            <div class="exp-slide" data-year="2019.08 — 2021.07">
-              <div class="exp-date">2019.08 — 2021.07</div>
-              <h4>有声书制作</h4>
+            <div class="exp-slide" data-year="2018.11 — 2024.05">
+              <div class="exp-date">2018.11 — 2024.05</div>
+              <h4>有声小说录制 / 项目统筹</h4>
               <div class="exp-co">北京美淇霖文化传媒有限公司</div>
               <ul class="exp-points">
-                <li>剧组组建与管理：搭建有声书剧组，筛选配音、后期人员并明确分工，保障人员适配项目需求。</li>
-                <li>制作全流程跟进：统筹前期定位、中期把控、后期终审，跟踪进度、解决问题，确保按时按质交付。</li>
-                <li>参与录制：以主播身份参与核心内容录制，把控情感基调，配合校对录音素材，保障录制质量。</li>
+                <li>参与近 20 部有声小说、广播剧及儿童有声内容制作，持续一年多承接番茄平台有声书整包项目。</li>
+                <li>在部分项目中承担剧组统筹，衔接录制、审听、对轨与后期制作，跟进返修与版本交付。</li>
+                <li>代表作品包括《她不哄他了》《替身娇妻：霍少请靠边站》《虎鹤妖师录》等。</li>
               </ul>
             </div>
-            <div class="exp-slide" data-year="2013.05 — 2018.03">
-              <div class="exp-date">2013.05 — 2018.03</div>
-              <h4>平面设计</h4>
+            <div class="exp-slide" data-year="2012.06 — 2018.03">
+              <div class="exp-date">2012.06 — 2018.03</div>
+              <h4>UX / 交互设计师</h4>
               <div class="exp-co">北京大朴至向家居设计有限公司</div>
               <ul class="exp-points">
-                <li>负责线上线下平面设计，确保符合品牌调性与传播目标。</li>
-                <li>设计电商/品牌店铺页面（首页、详情页等）与营销活动专题页，提升用户体验与转化。</li>
-                <li>设计线下物料（易拉宝、海报、展架等），保证线上线下风格统一。</li>
+                <li>负责家居电商页面视觉与选购路径设计，梳理信息层级、商品卖点、导航和购买入口。</li>
+                <li>配合日常运营及大促节点输出活动页面与配套视觉素材，兼顾品牌一致性、信息传达和转化引导。</li>
+                <li>协同运营、客服和技术团队完成页面实现、上线检查与后续优化。</li>
               </ul>
             </div>
           </div>
@@ -554,9 +569,9 @@
           </div>
 
           <div class="skill-strip">
-            <span class="ptag">需求分析</span><span class="ptag">产品规划</span><span class="ptag">Prompt 工程</span>
-            <span class="ptag">AI 质检</span><span class="ptag">数据标注</span><span class="ptag">项目管理</span>
-            <span class="ptag">Coze</span><span class="ptag">Dify</span><span class="ptag">数据分析</span>
+            <span class="ptag">业务调研</span><span class="ptag">产品规划</span><span class="ptag">PRD / 原型</span>
+            <span class="ptag">AI 质检与验收</span><span class="ptag">数据质量归因</span><span class="ptag">AI 图像评测</span>
+            <span class="ptag">成本优化</span><span class="ptag">内容 CMS</span><span class="ptag">SFT / RAG</span><span class="ptag">AI Coding</span>
           </div>
         </section>
 
@@ -564,38 +579,40 @@
         <section class="panel" id="panel-projects">
           <div class="panel-head">
             <h2>项目作品</h2>
-            <p>AI 产品实践 · 每张卡片都是会动的「活演示」</p>
+            <p>从业务规则、模型评测到独立搭建与业务成效</p>
           </div>
 
           <div class="pcard">
             <span class="pnum">01</span>
-            <div class="stage demo-check">
-              <div class="qc-row"><span class="qc-msg">客服：您好，请问需要什么帮助？</span><span class="qc-badge ok">✓ 合格</span></div>
-              <div class="qc-row"><span class="qc-msg">客服：已为您登记，请留意通知。</span><span class="qc-badge warn">! 复核</span></div>
-              <div class="qc-stat">准确率 98% · 人工耗时 ↓80%</div>
+            <div class="stage">
+              <img class="project-cover" src="project-atelier.jpg" alt="甲作 Atelier AI 美甲决策助手项目图" loading="lazy" decoding="async" />
             </div>
-            <h3>班班质检系统</h3>
-            <p class="desc">独立负责的自动化质检系统：用 Coze 工作流 + 飞书多维表格搭建，人工质检耗时从 2.5h/天降至 0.5h/天。</p>
-            <div class="tags"><span class="ptag">AI 质检</span><span class="ptag">Coze</span><span class="ptag">自动化</span><span class="ptag">2025.04 — 2026.06</span></div>
-            <a class="go" href="#">查看项目 <span>→</span></a>
+            <h3>甲作 Atelier · AI 美甲决策助手</h3>
+            <p class="desc">围绕“AI 推荐”和“上传喜欢的款式”设计两条决策路径，按款式复杂度拆分快速试戴与精细试戴。通过 12 张参考图的小样复测优化手部效果，并将单次试戴成本控制在 ¥0.21–¥0.35。</p>
+            <div class="tags"><span class="ptag">AI 图像</span><span class="ptag">模型评测</span><span class="ptag">成本优化</span><span class="ptag">2026.07 — 至今</span></div>
+            <a class="go" href="https://sk61hgt2mo3u1ac82oip1.apigateway-cn-beijing.volceapi.com/?v=20260827-7" target="_blank" rel="noopener">打开测试版 <span>→</span></a>
           </div>
 
           <div class="pcard">
             <span class="pnum">02</span>
-            <div class="stage demo-chart">
-              <span class="demo-label">质检覆盖率 87.5% → 98% 📈</span>
-              <div class="chart">
-                <i style="--h:70%;--d:0s"></i>
-                <i style="--h:80%;--d:.1s"></i>
-                <i style="--h:87%;--d:.2s"></i>
-                <i style="--h:92%;--d:.3s"></i>
-                <i style="--h:98%;--d:.4s"></i>
-              </div>
+            <div class="stage project-demo-stage cms-demo">
+              <img class="project-ui-shot" src="project-cms-demo.png" alt="思研内容台教学内容 CMS 真实 Demo 界面" loading="lazy" decoding="async" />
             </div>
-            <h3>主讲全链路 AI 质检体系</h3>
-            <p class="desc">梳理主讲首联多渠道（CRM、外呼、企微）业务逻辑并统一到企微，质检覆盖率从 87.5% 提升至 98%，降本 89%。</p>
-            <div class="tags"><span class="ptag">AI 质检</span><span class="ptag">首联 SOP</span><span class="ptag">降本增效</span><span class="ptag">2025.11 — 2026.04</span></div>
-            <a class="go" href="#">查看项目 <span>→</span></a>
+            <h3>思研内容台 · 教学内容 CMS</h3>
+            <p class="desc">为教案、知识点、例题和练习题搭建统一内容模型，设计 AI 生成、教研审核、发布与版本记录等 5 个状态节点及 4 类角色权限。在无研发支持的情况下，使用 AI 编码独立完成 CMS 1.0 搭建、测试和内部上线。</p>
+            <div class="tags"><span class="ptag">内容 CMS</span><span class="ptag">审核工作流</span><span class="ptag">AI Coding</span><span class="ptag">2026.04 — 2026.06</span></div>
+            <span class="go">内部项目 · 可面试展示</span>
+          </div>
+
+          <div class="pcard">
+            <span class="pnum">03</span>
+            <div class="stage project-demo-stage quality-demo">
+              <img class="project-ui-shot" src="project-quality-inspection-demo.png" alt="知检台教学服务 AI 质检系统真实 Demo 界面" loading="lazy" decoding="async" />
+            </div>
+            <h3>知检台 · 教学服务 AI 质检系统</h3>
+            <p class="desc">将 9 类教学服务场景从 10% 人工抽检升级为 AI 全量筛查，设计规则配置、数据校验、AI 初判、证据展示、主管复核与申诉留痕流程。通过多轮人机对照定位 ID 映射、任务错发和账号绑定等数据问题。</p>
+            <div class="tags"><span class="ptag">AI 质检</span><span class="ptag">数据归因</span><span class="ptag">人机协同</span><span class="ptag">2025.03 — 2026.06</span></div>
+            <a class="go" href="https://github.com/LalaGa-1119/ai-quality-inspection-dashboard" target="_blank" rel="noopener">查看脱敏演示 <span>→</span></a>
           </div>
         </section>
 
@@ -648,13 +665,13 @@
             <div class="c-row"><span class="k"><span class="ico">◎</span>GitHub</span><span class="v"><a href="https://github.com/LalaGa-1119" target="_blank" rel="noopener">github.com/LalaGa-1119</a></span></div>
             <div class="c-row"><span class="k"><span class="ico">✎</span>人人都是产品经理</span><span class="v"><a href="https://www.woshipm.com/u/1685119" target="_blank" rel="noopener">woshipm.com/u/1685119</a></span></div>
             <div class="c-row"><span class="k"><span class="ico">💬</span>微信</span><span class="v">lilimoyue</span></div>
-            <div class="c-row"><span class="k"><span class="ico">📱</span>手机</span><span class="v">15210745496</span></div>
+            <div class="c-row"><span class="k"><span class="ico">📱</span>手机</span><span class="v">15611806589</span></div>
           </div>
         </section>
       </div>
     </main>
 
-    <footer>© 2026 Gala · 用 ♥ 制作 · Gala™</footer>
+    <footer>© 2026 Gala · AI 产品经理 / Builder · 用 ♥ 制作</footer>
   </div>
 
   <script>
