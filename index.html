@@ -228,6 +228,18 @@
       display: block; transition: transform .8s var(--ease), filter .8s var(--ease);
     }
     .pcard:hover .stage .project-cover { transform: scale(1.025); filter: saturate(1.04); }
+    .pcard .stage.stage-video {
+      height: auto; aspect-ratio: 16 / 9; margin-bottom: 10px;
+      background: #f3efeb;
+    }
+    .pcard .project-video {
+      display: block; width: 100%; height: 100%; object-fit: contain;
+    }
+    .pcard .video-caption {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px;
+      margin-bottom: 18px; font-size: 12px; color: var(--t2);
+    }
+    .pcard .video-caption a { color: var(--pink); text-decoration: underline; text-underline-offset: 3px; }
     .pcard .project-demo-stage {
       padding: clamp(10px, 2.2vw, 24px);
       background-size: cover;
@@ -584,9 +596,18 @@
 
           <div class="pcard">
             <span class="pnum">01</span>
-            <div class="stage">
-              <img class="project-cover" src="project-atelier.png" alt="甲作 Atelier AI 美甲决策助手项目图" loading="lazy" decoding="async" />
+            <div class="stage stage-video">
+              <video class="project-video" controls playsinline preload="metadata"
+                width="1920" height="1080" poster="project-atelier-v5-poster.jpg"
+                aria-label="甲作 Atelier 产品介绍，28 秒" aria-describedby="atelier-video-caption">
+                <source src="project-atelier-v5.mp4" type="video/mp4" />
+                您的浏览器不支持内嵌视频，请使用下方链接观看。
+              </video>
             </div>
+            <p class="video-caption" id="atelier-video-caption">
+              <span>▶ 28 秒产品介绍 · 点击播放，可全屏观看</span>
+              <a href="project-atelier-v5.mp4" target="_blank" rel="noopener">单独打开视频 ↗</a>
+            </p>
             <h3>甲作 Atelier · AI 美甲决策助手</h3>
             <p class="desc">围绕“AI 推荐”和“上传喜欢的款式”设计两条决策路径，按款式复杂度拆分快速试戴与精细试戴。通过 12 张参考图的小样复测优化手部效果，并将单次试戴成本控制在 ¥0.21–¥0.35。</p>
             <div class="tags"><span class="ptag">AI 图像</span><span class="ptag">模型评测</span><span class="ptag">成本优化</span><span class="ptag">2026.07 — 至今</span></div>
